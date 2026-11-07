@@ -11,7 +11,7 @@
 :root{--ink:#111;--paper:#FCFBF8;--kraft:#B88D5F;--hl:#D9480F;--mut:#555;--line:#111;--grid:#DDD8CE}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--kraft);font-family:Inter,system-ui,sans-serif;color:var(--ink);padding:28px 16px 60px}
-.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:0}
 .lbl{background:var(--paper);border:3px solid var(--line)}
 .row{display:flex;flex-wrap:wrap;border-bottom:3px solid var(--line)}.row:last-child{border-bottom:0}
 .row>.c{padding:16px 20px;flex:1;min-width:220px}.row>.c+.c{border-left:3px solid var(--line)}
@@ -52,7 +52,14 @@ svg text{font-family:Inter}
 .duo>*{border-top:0;min-width:0}.duo>.col{border-left:3px solid var(--line);display:flex;flex-direction:column}.duo>.blk{border-top:0}.col>.blk:first-child{border-top:0}.col>.rek{flex:1}
 .rk{padding-left:22px;font:500 15px/1.55 Inter;color:#222}.rk li{margin-bottom:10px}.rk li::marker{font:800 15px 'JetBrains Mono',monospace;color:var(--hl)}
 .duo .row>.c{min-width:0}
-@media(max-width:1000px){.duo{grid-template-columns:1fr}.duo>.col{border-left:0;border-top:3px solid var(--line)}}
+@media(max-width:1150px){.duo{grid-template-columns:1fr}.duo>.col{border-left:0;border-top:3px solid var(--line)}}
+.wrap>main.lbl{box-shadow:10px 10px 0 rgba(43,29,14,.38)}
+.cut{display:flex;align-items:center;gap:14px;margin:34px 0;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.14em;color:#2b1d0e;text-transform:uppercase}
+.cut::before,.cut::after{content:'';flex:1;border-top:2px dashed #2b1d0e;opacity:.55}
+.wrap>footer{margin-top:34px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.g4>.c{min-width:0}
+@media(min-width:1151px){.kpis,.g4{grid-template-columns:.65fr .65fr .5fr .5fr}}
+@media(max-width:700px){.cut{margin:24px 0}.wrap>main.lbl{box-shadow:6px 6px 0 rgba(43,29,14,.38)}}
 footer{font:12px 'JetBrains Mono',monospace;color:#2b1d0e;text-align:center}
 a{color:inherit}
 @media(max-width:700px){.row>.c+.c{border-left:0;border-top:3px solid var(--line)}.kpis>div{border-right:0;border-bottom:3px solid var(--line)}}
@@ -69,7 +76,7 @@ a{color:inherit}
     <p class="dek">UMKM digital Indonesia sudah online, tapi barangnya tertahan di pulau asal. Dashboard ini memuat data per provinsi di balik infografis: siapa yang paling terkunci, berapa ongkosnya, dan di mana solusi sebaiknya dimulai.</p>
   </div></div>
   <div class="kpis" id="kpis"></div>
-  <div class="row"><div class="c"><span class="k">Pengirim</span><span class="v">Ferdy Febrian Iskandar</span></div><div class="c"><span class="k">Sumber data</span><span class="v" id="src-mode">memuat…</span></div><div class="c"><span class="k">Tanggal</span><span class="v">November 2026</span></div></div>
+  <div class="row g4"><div class="c"><span class="k">Pengirim</span><span class="v">Ferdy Febrian Iskandar</span></div><div class="c"><span class="k">Sumber data</span><span class="v" id="src-mode">memuat…</span></div><div class="c"><span class="k">Tanggal</span><span class="v">November 2026</span></div><div class="c"><span class="k">Isi paket</span><span class="v">38 provinsi · 5 tabel</span></div></div>
 </section>
 
 <div class="duo">
@@ -101,6 +108,8 @@ a{color:inherit}
 
 </main>
 
+<div class="cut" aria-hidden="true">✂ potong di sini · resi berikutnya</div>
+
 <main class="lbl one">
 <section class="blk hdr">
   <div class="row"><div class="c"><span class="v" style="font-size:22px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 2/3 · SIAPA PALING TERDAMPAK DAN DATA 38 PROVINSI</div></div><div class="c no">2/3</div></div>
@@ -124,6 +133,8 @@ a{color:inherit}
 </section>
 
 </main>
+
+<div class="cut" aria-hidden="true">✂ potong di sini · resi berikutnya</div>
 
 <main class="lbl one">
 <section class="blk hdr">
@@ -274,6 +285,8 @@ load().then(d=>{
   document.getElementById('bp').onclick=e=>{onlyP=!onlyP;e.target.classList.toggle('on',onlyP);table(d)};
   table(d);
 }).catch(e=>{document.getElementById('src-mode').textContent='gagal memuat data';console.error(e)});
+function samakanKepala(){const hs=[...document.querySelectorAll('.duo>.blk>.row:first-child,.duo>.col>.blk:first-child>.row:first-child')];hs.forEach(h=>h.style.minHeight='');if(innerWidth>1150&&hs.length===2){const m=Math.max(...hs.map(h=>h.offsetHeight));hs.forEach(h=>h.style.minHeight=m+'px')}}
+addEventListener('resize',samakanKepala);(document.fonts?document.fonts.ready:Promise.resolve()).then(samakanKepala);samakanKepala();
 </script>
 </body>
 </html>
