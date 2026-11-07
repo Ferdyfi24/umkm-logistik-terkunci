@@ -22,6 +22,7 @@ h1{font:800 clamp(30px,5vw,56px)/1.05 Inter;letter-spacing:-.02em;text-transform
 h1 span,h2 span{background:var(--ink);color:var(--paper);padding:0 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 h2{font:800 clamp(22px,3vw,32px)/1.1 Inter;letter-spacing:-.01em;text-transform:uppercase}
 .dek{font:500 17px/1.55 Inter;color:#333;margin-top:10px;max-width:820px}
+.no.resi{flex-direction:column;font:800 24px Inter;min-width:150px}.no.resi span{font:700 11px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
 .no{background:var(--ink);color:var(--paper);font:800 34px Inter;display:flex;align-items:center;justify-content:center;min-width:110px;flex:0 0 auto!important}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 .kpis>div{padding:18px 20px;border-right:3px solid var(--line)}.kpis>div:last-child{border-right:0}
@@ -60,6 +61,16 @@ svg text{font-family:Inter}
 .g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.g4>.c{min-width:0}
 @media(min-width:1151px){.kpis,.g4{grid-template-columns:.65fr .65fr .5fr .5fr}}
 @media(max-width:700px){.cut{margin:24px 0}.wrap>main.lbl{box-shadow:6px 6px 0 rgba(43,29,14,.38)}}
+.ubin{display:flex;flex-direction:column;gap:8px}
+.ub-r{display:grid;grid-template-columns:150px repeat(10,minmax(0,1fr));gap:6px;align-items:stretch}
+.ub-l{font:700 11px 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#444;display:flex;flex-direction:column;justify-content:center;border-right:3px solid var(--ink);padding-right:10px}
+.ub-l b{font:800 20px 'JetBrains Mono',monospace;color:var(--ink);letter-spacing:0;margin-top:2px}
+.ub{border:2px solid var(--ink);padding:7px 7px 6px;min-height:84px;display:flex;flex-direction:column;justify-content:space-between;background:#fff;cursor:default}
+.ub .n{font:600 12px/1.2 Inter}.ub .i{font:800 20px/1 'JetBrains Mono',monospace;margin-top:6px}.ub .s{font:500 11px 'JetBrains Mono',monospace;color:#555;white-space:nowrap}
+.ub.p{background:var(--hl);border-color:var(--hl);color:#fff}.ub.p .s{color:#fff;opacity:.9}
+.lengkap{margin-top:18px;border-top:3px solid var(--ink);padding-top:12px}
+.lengkap summary{cursor:pointer;font:700 13px 'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:uppercase}
+@media(max-width:900px){.ub-r{grid-template-columns:repeat(3,minmax(0,1fr))}.ub-l{grid-column:1/-1;border-right:0;border-bottom:2px solid var(--ink);flex-direction:row;justify-content:space-between;align-items:baseline;padding:6px 0}}
 footer{font:12px 'JetBrains Mono',monospace;color:#2b1d0e;text-align:center}
 a{color:inherit}
 @media(max-width:700px){.row>.c+.c{border-left:0;border-top:3px solid var(--line)}.kpis>div{border-right:0;border-bottom:3px solid var(--line)}}
@@ -70,7 +81,7 @@ a{color:inherit}
 <div class="wrap">
 <main class="lbl one">
 <section class="blk hdr">
-  <div class="row"><div class="c"><span class="v" style="font-size:30px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 1/3 · DASHBOARD FINAL PROJECT DATA ANALYTICS · CREATIVE TECHNOLOGY FUTURE TALENTS</div></div><div class="c no">1/3</div></div>
+  <div class="row"><div class="c"><span class="v" style="font-size:30px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 1/3 · DASHBOARD FINAL PROJECT DATA ANALYTICS · CREATIVE TECHNOLOGY FUTURE TALENTS</div></div><div class="c no resi"><span>Resi</span>1 dari 3</div></div>
   <div class="row"><div class="c" style="padding:28px 20px">
     <h1>Lebih dekat ke luar negeri <span>daripada ke pulau sebelah</span></h1>
     <p class="dek">UMKM digital Indonesia sudah online, tapi barangnya tertahan di pulau asal. Dashboard ini memuat data per provinsi di balik infografis: siapa yang paling terkunci, berapa ongkosnya, dan di mana solusi sebaiknya dimulai.</p>
@@ -81,24 +92,24 @@ a{color:inherit}
 
 <div class="duo">
 <section class="blk">
-  <div class="row"><div class="c"><span class="k">01 · Pasar terkunci</span><h2>Ke mana usaha online <span>mengirim barangnya</span></h2>
-  <p class="dek">Persen usaha e-commerce di provinsi asal yang melayani tiap wilayah tujuan. Kotak gelap = pulau sendiri. Kotak berbingkai oranye = provinsi yang lebih banyak mengirim ke luar negeri daripada ke Jawa.</p></div><div class="c no">01</div></div>
+  <div class="row"><div class="c"><span class="k">Temuan 1 · Pasar terkunci</span><h2>Ke mana usaha online <span>mengirim barangnya</span></h2>
+  <p class="dek">Persen usaha e-commerce di provinsi asal yang melayani tiap wilayah tujuan. Kotak gelap = pulau sendiri. Kotak berbingkai oranye = provinsi yang lebih banyak mengirim ke luar negeri daripada ke Jawa.</p></div></div>
   <div class="sec scroll"><table class="hm" id="hm"></table>
   <p class="note" style="margin-top:12px">Sumber: BPS, Statistik E-Commerce 2024, Lampiran 23. Satu usaha bisa melayani lebih dari satu wilayah.</p></div>
 </section>
 <div class="col">
 <section class="blk">
-  <div class="row"><div class="c"><span class="k">02 · Ongkos menyeberang</span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
-  <p class="dek">Rute sama dari Jakarta. Tarif borongan (kargo laut) baru berlaku mulai 50 kg.</p></div><div class="c no">02</div></div>
+  <div class="row"><div class="c"><span class="k">Temuan 2 · Ongkos menyeberang</span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
+  <p class="dek">Rute sama dari Jakarta. Tarif borongan (kargo laut) baru berlaku mulai 50 kg.</p></div></div>
   <div class="sec"><div id="tr"></div>
   <p class="note">Sumber: cek tarif resmi jet.co.id (5 Nov 2026); kargo laut dari situs forwarder. Tarif kargo belum termasuk biaya konsolidasi dan antar akhir, jadi selisih ini batas atas.</p></div>
   <div class="row" style="border-top:3px solid var(--line)"><div class="c"><span class="k">Biaya tidak resmi (% perusahaan)</span><div id="wb"></div><p class="note">World Bank Enterprise Survey Indonesia 2023. Tidak mencakup usaha di bawah 5 karyawan dan pungli di jalan.</p></div></div>
 </section>
 <section class="blk rek">
-  <div class="row"><div class="c"><span class="k">Solusi · satu per masalah</span><h2>Kumpulkan dulu, <span>baru seberangkan</span></h2></div><div class="c no">→</div></div>
+  <div class="row"><div class="c"><span class="k">Solusi · satu per temuan</span><h2>Kumpulkan dulu, <span>baru seberangkan</span></h2></div></div>
   <div class="sec"><ol class="rk">
-    <li><b>Titik kumpul kiriman antarpulau berbasis AI.</b> Lewat agregator, koperasi, sentra ekraf, atau kemitraan ekspedisi. Kiriman kecil digabung sampai masuk tarif kargo, jadi menjawab ongkos 14× di blok 02.</li>
-    <li><b>Mulai dari 13 provinsi prioritas.</b> Kuadran kanan atas di blok 03, sekitar 534 ribu usaha online. Sekalian pelatihan AI praktis untuk pemasaran ke luar pulau (kendala tenaga terampil 16,03%, pemasaran 20,52%).</li>
+    <li><b>Titik kumpul kiriman antarpulau berbasis AI.</b> Lewat agregator, koperasi, sentra ekraf, atau kemitraan ekspedisi. Kiriman kecil digabung sampai masuk tarif kargo, jadi menjawab ongkos 14× di temuan 2.</li>
+    <li><b>Mulai dari 13 provinsi prioritas.</b> Kuadran kanan atas di temuan 3, sekitar 534 ribu usaha online. Sekalian pelatihan AI praktis untuk pemasaran ke luar pulau (kendala tenaga terampil 16,03%, pemasaran 20,52%).</li>
     <li><b>Survei rutin pungli jalan dan pelabuhan, plus tracking digital.</b> World Bank Enterprise Survey belum mengukurnya, dan skor tracking LPI Indonesia turun dari 3,67 ke 3,0.</li>
   </ol>
   <p class="note" style="margin-top:10px">Usulan berbasis bukti (kolaborasi horizontal UMKM: Sustainability 2025; matching digital: World Bank), belum diuji di Indonesia.</p></div>
@@ -112,23 +123,27 @@ a{color:inherit}
 
 <main class="lbl one">
 <section class="blk hdr">
-  <div class="row"><div class="c"><span class="v" style="font-size:22px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 2/3 · SIAPA PALING TERDAMPAK DAN DATA 38 PROVINSI</div></div><div class="c no">2/3</div></div>
+  <div class="row"><div class="c"><span class="v" style="font-size:22px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 2/3 · SIAPA PALING TERDAMPAK DAN DATA 38 PROVINSI</div></div><div class="c no resi"><span>Resi</span>2 dari 3</div></div>
 </section>
 <section class="blk">
-  <div class="row"><div class="c"><span class="k">03 · Siapa paling terdampak</span><h2>Paling terkunci, <span>paling sulit mengirim</span></h2>
-  <p class="dek">Tiap titik satu provinsi. Kanan = makin jarang mengirim ke pulau lain. Atas = makin banyak yang menyebut jasa pengiriman sebagai kendala utama. Kuadran kanan atas = 13 provinsi prioritas.</p></div><div class="c no">03</div></div>
+  <div class="row"><div class="c"><span class="k">Temuan 3 · Siapa paling terdampak</span><h2>Paling terkunci, <span>paling sulit mengirim</span></h2>
+  <p class="dek">Tiap titik satu provinsi. Kanan = makin jarang mengirim ke pulau lain. Atas = makin banyak yang menyebut jasa pengiriman sebagai kendala utama. Kuadran kanan atas = 13 provinsi prioritas.</p></div></div>
   <div class="sec"><div id="sc"></div>
   <p class="note" style="margin-top:8px">Indeks Keterkuncian Pulau = 100 − jumlah % usaha yang melayani pulau lain (batas bawah). Garis putus = median 38 provinsi. Lingkaran putus-putus = RSE di atas 10% (kurang presisi). Sumber: BPS Lampiran 3, 23, 29 (diolah).</p></div>
 </section>
 
 <section class="blk">
-  <div class="row"><div class="c"><span class="k">Tabel lengkap</span><h2>38 provinsi</h2></div><div class="c no">38</div></div>
-  <div class="sec">
+  <div class="row"><div class="c"><span class="k">Data per provinsi</span><h2>38 provinsi, <span>13 jadi prioritas</span></h2>
+  <p class="dek">Satu kotak = satu provinsi, disusun per pulau dari barat ke timur. Angka besar = indeks keterkuncian (makin tinggi, makin jarang kirim ke pulau lain). Kotak oranye = provinsi prioritas. Arahkan kursor ke kotak untuk detail.</p></div></div>
+  <div class="sec"><div id="ubin" class="ubin"></div>
+    <p class="note" style="margin-top:12px">Angka kecil di bawah = % usaha yang menyebut jasa pengiriman sebagai kendala utama. * RSE di atas 10% (kurang presisi). Sumber: BPS Statistik E-Commerce 2024 (diolah).</p>
+    <details class="lengkap"><summary>Lihat tabel lengkap 38 provinsi (cari, urutkan, filter)</summary>
     <div class="ctrl"><input id="q" placeholder="Cari provinsi…" aria-label="Cari provinsi">
       <select id="fp" aria-label="Filter wilayah"><option value="">Semua wilayah</option></select>
       <button class="btn" id="bp">Hanya prioritas</button></div>
     <div class="scroll"><table id="tb"></table></div>
     <p class="note" style="margin-top:10px">Klik judul kolom untuk mengurutkan. Garis oranye di kiri = provinsi prioritas. * RSE di atas 10%.</p>
+    </details>
   </div>
 </section>
 
@@ -138,10 +153,10 @@ a{color:inherit}
 
 <main class="lbl one">
 <section class="blk hdr">
-  <div class="row"><div class="c"><span class="v" style="font-size:22px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 3/3 · METODE, BATASAN, DAN SUMBER</div></div><div class="c no">3/3</div></div>
+  <div class="row"><div class="c"><span class="v" style="font-size:22px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 3/3 · METODE, BATASAN, DAN SUMBER</div></div><div class="c no resi"><span>Resi</span>3 dari 3</div></div>
 </section>
 <section class="blk">
-  <div class="row"><div class="c"><span class="k">Metode, batasan, sumber</span><h2>Catatan pengiriman</h2></div><div class="c no">i</div></div>
+  <div class="row"><div class="c"><span class="k">Metode, batasan, sumber</span><h2>Catatan pengiriman</h2></div></div>
   <div class="row"><div class="c">
     <span class="k">Cara data diolah</span>
     <ul class="dek" style="padding-left:18px;font-size:15px">
@@ -251,6 +266,16 @@ function table(d){
   t.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;sortD=sortK===k?-sortD:-1;sortK=k;table(d)});
 }
 
+function ubin(d){
+  const P=d.provinsi;let h='';
+  IS.forEach(pl=>{const rs=P.filter(r=>r.pulau===pl),tot=rs.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0),ix=rs.reduce((a,r)=>a+r.indeks_keterkuncian*r.jumlah_usaha_ecommerce,0)/tot;
+    h+=`<div class="ub-r"><div class="ub-l">${pl}<b>${f(ix)}</b></div>`+rs.map(r=>{
+      const t=`<b>${r.provinsi}</b>${r.prioritas?' · PRIORITAS':''}<br>Indeks keterkuncian ${f(r.indeks_keterkuncian)}<br>Kendala kirim ${f(r.kendala_kirim)}%<br>Kirim ke Jawa ${f(r.tujuan_jawa)}% · ke luar negeri ${f(r.tujuan_luarnegeri)}%<br>${r.jumlah_usaha_ecommerce.toLocaleString('id-ID')} usaha online${r.rse_pct>10?'<br>RSE '+f(r.rse_pct)+'% (kurang presisi)':''}`;
+      return `<div class="ub${r.prioritas?' p':''}" data-t="${t.replace(/"/g,'&quot;')}"><span class="n">${r.provinsi}${r.rse_pct>10?' *':''}</span><span class="i">${f(r.indeks_keterkuncian,1)}</span><span class="s">${f(r.kendala_kirim,1)}%</span></div>`}).join('')+'</div>';});
+  const el=document.getElementById('ubin');el.innerHTML=h;
+  el.querySelectorAll('[data-t]').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.t);c.onmouseleave=hideTip});
+}
+
 function bars(el,items,max,unit){
   const W0=640,L=250,R=118,bh=28,g=9;let y=8,s='';
   items.forEach(it=>{
@@ -279,7 +304,7 @@ function tarif(d){
 function sumber(d){document.getElementById('sm').innerHTML=d.sumber.map(s=>`<li>${s.penerbit} (${s.tahun}). ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${s.judul}</a>`:s.judul}${s.kuartil_sjr?` <b>[SJR ${s.kuartil_sjr}]</b>`:''}</li>`).join('')}
 
 load().then(d=>{
-  kpis(d);heat(d);scatter(d);tarif(d);sumber(d);
+  kpis(d);heat(d);scatter(d);ubin(d);tarif(d);sumber(d);
   const fp=document.getElementById('fp');IS.forEach(p=>fp.insertAdjacentHTML('beforeend',`<option>${p}</option>`));
   ['q','fp'].forEach(id=>document.getElementById(id).oninput=()=>table(d));
   document.getElementById('bp').onclick=e=>{onlyP=!onlyP;e.target.classList.toggle('on',onlyP);table(d)};
