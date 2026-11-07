@@ -1,7 +1,7 @@
-// Isi dua nilai ini dari Supabase akun pribadi: Project Settings > API.
-// Pakai URL project dan publishable key (anon). JANGAN pakai service_role / secret key.
-// Kalau dikosongkan, dashboard otomatis memakai data.json.
+// Supabase akun pribadi (project umkm-logistik). Publishable key memang aman dipajang di web:
+// tabel fpda cuma bisa DIBACA (RLS + grant select). JANGAN taruh service_role / secret key di sini.
+// Kalau Supabase gagal, dashboard otomatis memakai data.json.
 window.FPDA_CONFIG = {
-  supabaseUrl: "",
-  supabaseKey: ""
+  supabaseUrl: "https://hlxdzxvlyfkmmcwjcjlv.supabase.co",
+  supabaseKey: "sb_publishable_mjGfKucaM_UiEl_InluPtw_w2P87ie8"
 };

@@ -11,7 +11,7 @@
 :root{--ink:#111;--paper:#FCFBF8;--kraft:#B88D5F;--hl:#D9480F;--mut:#555;--line:#111;--grid:#DDD8CE}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--kraft);font-family:Inter,system-ui,sans-serif;color:var(--ink);padding:28px 16px 60px}
-.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 .lbl{background:var(--paper);border:3px solid var(--line)}
 .row{display:flex;flex-wrap:wrap;border-bottom:3px solid var(--line)}.row:last-child{border-bottom:0}
 .row>.c{padding:16px 20px;flex:1;min-width:220px}.row>.c+.c{border-left:3px solid var(--line)}
@@ -45,6 +45,14 @@ tr.pri td:first-child{box-shadow:inset 5px 0 0 var(--hl)}
 .tag{display:inline-block;font:700 11px 'JetBrains Mono',monospace;border:2px solid var(--hl);color:var(--hl);padding:1px 6px;margin-left:6px}
 svg text{font-family:Inter}
 .tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font:500 13px/1.45 Inter;padding:8px 10px;display:none;z-index:9;max-width:260px}
+.one{display:flex;flex-direction:column}
+.blk{border-top:3px solid var(--line)}.blk.hdr{border-top:0}
+.blk>.row:first-child{border-bottom:3px solid var(--line)}
+.duo{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);border-top:3px solid var(--line)}
+.duo>*{border-top:0;min-width:0}.duo>.col{border-left:3px solid var(--line);display:flex;flex-direction:column}.duo>.blk{border-top:0}.col>.blk:first-child{border-top:0}.col>.rek{flex:1}
+.rk{padding-left:22px;font:500 15px/1.55 Inter;color:#222}.rk li{margin-bottom:10px}.rk li::marker{font:800 15px 'JetBrains Mono',monospace;color:var(--hl)}
+.duo .row>.c{min-width:0}
+@media(max-width:1000px){.duo{grid-template-columns:1fr}.duo>.col{border-left:0;border-top:3px solid var(--line)}}
 footer{font:12px 'JetBrains Mono',monospace;color:#2b1d0e;text-align:center}
 a{color:inherit}
 @media(max-width:700px){.row>.c+.c{border-left:0;border-top:3px solid var(--line)}.kpis>div{border-right:0;border-bottom:3px solid var(--line)}}
@@ -53,8 +61,8 @@ a{color:inherit}
 <body>
 <div class="tip" id="tip"></div>
 <div class="wrap">
-
-<section class="lbl">
+<main class="lbl one">
+<section class="blk hdr">
   <div class="row"><div class="c"><span class="v" style="font-size:30px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">DASHBOARD · FINAL PROJECT DATA ANALYTICS · CREATIVE TECHNOLOGY FUTURE TALENTS</div></div><div class="c no">DASH</div></div>
   <div class="row"><div class="c" style="padding:28px 20px">
     <h1>Lebih dekat ke luar negeri <span>daripada ke pulau sebelah</span></h1>
@@ -64,21 +72,41 @@ a{color:inherit}
   <div class="row"><div class="c"><span class="k">Pengirim</span><span class="v">Ferdy Febrian Iskandar</span></div><div class="c"><span class="k">Sumber data</span><span class="v" id="src-mode">memuat…</span></div><div class="c"><span class="k">Tanggal</span><span class="v">November 2026</span></div></div>
 </section>
 
-<section class="lbl">
+<div class="duo">
+<section class="blk">
   <div class="row"><div class="c"><span class="k">01 · Pasar terkunci</span><h2>Ke mana usaha online <span>mengirim barangnya</span></h2>
   <p class="dek">Persen usaha e-commerce di provinsi asal yang melayani tiap wilayah tujuan. Kotak gelap = pulau sendiri. Kotak berbingkai oranye = provinsi yang lebih banyak mengirim ke luar negeri daripada ke Jawa.</p></div><div class="c no">01</div></div>
   <div class="sec scroll"><table class="hm" id="hm"></table>
   <p class="note" style="margin-top:12px">Sumber: BPS, Statistik E-Commerce 2024, Lampiran 23. Satu usaha bisa melayani lebih dari satu wilayah.</p></div>
 </section>
+<div class="col">
+<section class="blk">
+  <div class="row"><div class="c"><span class="k">02 · Ongkos menyeberang</span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
+  <p class="dek">Rute sama dari Jakarta. Tarif borongan (kargo laut) baru berlaku mulai 50 kg.</p></div><div class="c no">02</div></div>
+  <div class="sec"><div id="tr"></div>
+  <p class="note">Sumber: cek tarif resmi jet.co.id (5 Nov 2026); kargo laut dari situs forwarder. Tarif kargo belum termasuk biaya konsolidasi dan antar akhir, jadi selisih ini batas atas.</p></div>
+  <div class="row" style="border-top:3px solid var(--line)"><div class="c"><span class="k">Biaya tidak resmi (% perusahaan)</span><div id="wb"></div><p class="note">World Bank Enterprise Survey Indonesia 2023. Tidak mencakup usaha di bawah 5 karyawan dan pungli di jalan.</p></div></div>
+</section>
+<section class="blk rek">
+  <div class="row"><div class="c"><span class="k">Solusi · satu per masalah</span><h2>Kumpulkan dulu, <span>baru seberangkan</span></h2></div><div class="c no">→</div></div>
+  <div class="sec"><ol class="rk">
+    <li><b>Titik kumpul kiriman antarpulau berbasis AI.</b> Lewat agregator, koperasi, sentra ekraf, atau kemitraan ekspedisi. Kiriman kecil digabung sampai masuk tarif kargo, jadi menjawab ongkos 14× di blok 02.</li>
+    <li><b>Mulai dari 13 provinsi prioritas.</b> Kuadran kanan atas di blok 03, sekitar 534 ribu usaha online. Sekalian pelatihan AI praktis untuk pemasaran ke luar pulau (kendala tenaga terampil 16,03%, pemasaran 20,52%).</li>
+    <li><b>Survei rutin pungli jalan dan pelabuhan, plus tracking digital.</b> World Bank Enterprise Survey belum mengukurnya, dan skor tracking LPI Indonesia turun dari 3,67 ke 3,0.</li>
+  </ol>
+  <p class="note" style="margin-top:10px">Usulan berbasis bukti (kolaborasi horizontal UMKM: Sustainability 2025; matching digital: World Bank), belum diuji di Indonesia.</p></div>
+</section>
+</div>
+</div>
 
-<section class="lbl">
+<section class="blk">
   <div class="row"><div class="c"><span class="k">03 · Siapa paling terdampak</span><h2>Paling terkunci, <span>paling sulit mengirim</span></h2>
   <p class="dek">Tiap titik satu provinsi. Kanan = makin jarang mengirim ke pulau lain. Atas = makin banyak yang menyebut jasa pengiriman sebagai kendala utama. Kuadran kanan atas = 13 provinsi prioritas.</p></div><div class="c no">03</div></div>
   <div class="sec"><div id="sc"></div>
   <p class="note" style="margin-top:8px">Indeks Keterkuncian Pulau = 100 − jumlah % usaha yang melayani pulau lain (batas bawah). Garis putus = median 38 provinsi. Lingkaran putus-putus = RSE di atas 10% (kurang presisi). Sumber: BPS Lampiran 3, 23, 29 (diolah).</p></div>
 </section>
 
-<section class="lbl">
+<section class="blk">
   <div class="row"><div class="c"><span class="k">Tabel lengkap</span><h2>38 provinsi</h2></div><div class="c no">38</div></div>
   <div class="sec">
     <div class="ctrl"><input id="q" placeholder="Cari provinsi…" aria-label="Cari provinsi">
@@ -89,15 +117,7 @@ a{color:inherit}
   </div>
 </section>
 
-<section class="lbl">
-  <div class="row"><div class="c"><span class="k">02 · Ongkos menyeberang</span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
-  <p class="dek">Rute sama dari Jakarta. Tarif borongan (kargo laut) baru berlaku mulai 50 kg.</p></div><div class="c no">02</div></div>
-  <div class="sec"><div id="tr"></div>
-  <p class="note">Sumber: cek tarif resmi jet.co.id (5 Nov 2026); kargo laut dari situs forwarder. Tarif kargo belum termasuk biaya konsolidasi dan antar akhir, jadi selisih ini batas atas.</p></div>
-  <div class="row" style="border-top:3px solid var(--line)"><div class="c"><span class="k">Biaya tidak resmi (% perusahaan)</span><div id="wb"></div><p class="note">World Bank Enterprise Survey Indonesia 2023. Tidak mencakup usaha di bawah 5 karyawan dan pungli di jalan.</p></div></div>
-</section>
-
-<section class="lbl">
+<section class="blk">
   <div class="row"><div class="c"><span class="k">Metode, batasan, sumber</span><h2>Catatan pengiriman</h2></div><div class="c no">i</div></div>
   <div class="row"><div class="c">
     <span class="k">Cara data diolah</span>
@@ -115,6 +135,7 @@ a{color:inherit}
     </ul></div></div>
   <div class="sec"><span class="k">Daftar sumber</span><ol id="sm" class="note" style="padding-left:22px;font-size:13.5px;line-height:1.8"></ol></div>
 </section>
+</main>
 
 <footer>Data & kode: github.com/Ferdyfi24/umkm-logistik-terkunci · Lisensi data mengikuti sumber aslinya</footer>
 </div>
@@ -208,7 +229,7 @@ function table(d){
 }
 
 function bars(el,items,max,unit){
-  const W0=1000,L=300,R=150,bh=30,g=10;let y=8,s='';
+  const W0=640,L=250,R=118,bh=28,g=9;let y=8,s='';
   items.forEach(it=>{
     if(it.head){s+=`<text x="0" y="${y+18}" font-size="16" font-weight="800">${it.head}</text>${it.right?`<text x="${W0}" y="${y+18}" font-size="15" font-weight="800" fill="#D9480F" text-anchor="end">${it.right}</text>`:''}`;y+=30;return}
     const w=Math.max(3,it.v/max*(W0-L-R));
