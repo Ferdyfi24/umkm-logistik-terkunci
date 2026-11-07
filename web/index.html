@@ -71,6 +71,10 @@ svg text{font-family:Inter}
 .lengkap{margin-top:18px;border-top:3px solid var(--ink);padding-top:12px}
 .lengkap summary{cursor:pointer;font:700 13px 'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:uppercase}
 @media(max-width:900px){.ub-r{grid-template-columns:repeat(3,minmax(0,1fr))}.ub-l{grid-column:1/-1;border-right:0;border-bottom:2px solid var(--ink);flex-direction:row;justify-content:space-between;align-items:baseline;padding:6px 0}}
+.ket{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin-top:12px;max-width:900px;font:500 15px/1.5 Inter;color:#333}
+.ket dt{font:700 11px/1.9 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#777}
+.ket dd b{font-weight:700;color:var(--ink)}
+@media(max-width:700px){.ket{grid-template-columns:1fr;gap:0}.ket dt{margin-top:8px}}
 footer{font:12px 'JetBrains Mono',monospace;color:#2b1d0e;text-align:center}
 a{color:inherit}
 @media(max-width:700px){.row>.c+.c{border-left:0;border-top:3px solid var(--line)}.kpis>div{border-right:0;border-bottom:3px solid var(--line)}}
@@ -87,20 +91,20 @@ a{color:inherit}
     <p class="dek">UMKM digital Indonesia sudah online, tapi barangnya tertahan di pulau asal. Dashboard ini memuat data per provinsi di balik infografis: siapa yang paling terkunci, berapa ongkosnya, dan di mana solusi sebaiknya dimulai.</p>
   </div></div>
   <div class="kpis" id="kpis"></div>
-  <div class="row g4"><div class="c"><span class="k">Pengirim</span><span class="v">Ferdy Febrian Iskandar</span></div><div class="c"><span class="k">Sumber data</span><span class="v" id="src-mode">memuat…</span></div><div class="c"><span class="k">Tanggal</span><span class="v">November 2026</span></div><div class="c"><span class="k">Isi paket</span><span class="v">38 provinsi · 5 tabel</span></div></div>
+  <div class="row g4"><div class="c"><span class="k">Pengirim</span><span class="v">Ferdy Febrian Iskandar</span></div><div class="c"><span class="k">Sumber data</span><span class="v">BPS · World Bank · J&amp;T</span></div><div class="c"><span class="k">Database</span><span class="v" id="src-mode">memuat…</span></div><div class="c"><span class="k">Tanggal</span><span class="v">November 2026</span></div></div>
 </section>
 
 <div class="duo">
 <section class="blk">
   <div class="row"><div class="c"><span class="k">Temuan 1 · Pasar terkunci</span><h2>Ke mana usaha online <span>mengirim barangnya</span></h2>
-  <p class="dek">Persen usaha e-commerce di provinsi asal yang melayani tiap wilayah tujuan. Kotak gelap = pulau sendiri. Kotak berbingkai oranye = provinsi yang lebih banyak mengirim ke luar negeri daripada ke Jawa.</p></div></div>
+  <dl class="ket"><dt>Data</dt><dd>BPS, Statistik E-Commerce 2024, Lampiran 23. Persen usaha e-commerce di tiap provinsi yang melayani tiap wilayah tujuan. Satu usaha bisa melayani lebih dari satu wilayah.</dd><dt>Cara baca</dt><dd>Baris = provinsi asal, kolom = tujuan. Kotak hitam = pulau sendiri. Makin oranye = makin banyak usaha yang mengirim ke sana. Bingkai oranye = lebih banyak mengirim ke luar negeri daripada ke Jawa.</dd><dt>Temuan</dt><dd><b>Rata-rata tiap wilayah di luar Jawa, minimal 95 dari 100 usaha online tidak mengirim ke pulau lain. Di NTT, yang mengirim ke luar negeri (3,87%) lebih banyak daripada yang mengirim ke Jawa (2,78%).</b></dd></dl></div></div>
   <div class="sec scroll"><table class="hm" id="hm"></table>
   <p class="note" style="margin-top:12px">Sumber: BPS, Statistik E-Commerce 2024, Lampiran 23. Satu usaha bisa melayani lebih dari satu wilayah.</p></div>
 </section>
 <div class="col">
 <section class="blk">
   <div class="row"><div class="c"><span class="k">Temuan 2 · Ongkos menyeberang</span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
-  <p class="dek">Rute sama dari Jakarta. Tarif borongan (kargo laut) baru berlaku mulai 50 kg.</p></div></div>
+  <dl class="ket"><dt>Data</dt><dd>Tarif resmi J&amp;T (jet.co.id, dicek 5 Nov 2026) untuk kiriman 1 kg dari Jakarta, dibanding tarif kargo laut forwarder yang baru berlaku mulai 50 kg. Biaya tidak resmi dari World Bank Enterprise Survey Indonesia 2023.</dd><dt>Cara baca</dt><dd>Panjang batang = rupiah per kg atau % perusahaan. Oranye = kirim borongan dan Indonesia.</dd><dt>Temuan</dt><dd><b>Per kg, kirim satuan ke Kupang 7-14× dan ke Jayapura 14× lebih mahal daripada borongan. 20,3% perusahaan di Indonesia pernah dimintai suap, di atas rata-rata Asia Timur &amp; Pasifik (12,8%).</b></dd></dl></div></div>
   <div class="sec"><div id="tr"></div>
   <p class="note">Sumber: cek tarif resmi jet.co.id (5 Nov 2026); kargo laut dari situs forwarder. Tarif kargo belum termasuk biaya konsolidasi dan antar akhir, jadi selisih ini batas atas.</p></div>
   <div class="row" style="border-top:3px solid var(--line)"><div class="c"><span class="k">Biaya tidak resmi (% perusahaan)</span><div id="wb"></div><p class="note">World Bank Enterprise Survey Indonesia 2023. Tidak mencakup usaha di bawah 5 karyawan dan pungli di jalan.</p></div></div>
@@ -127,14 +131,14 @@ a{color:inherit}
 </section>
 <section class="blk">
   <div class="row"><div class="c"><span class="k">Temuan 3 · Siapa paling terdampak</span><h2>Paling terkunci, <span>paling sulit mengirim</span></h2>
-  <p class="dek">Tiap titik satu provinsi. Kanan = makin jarang mengirim ke pulau lain. Atas = makin banyak yang menyebut jasa pengiriman sebagai kendala utama. Kuadran kanan atas = 13 provinsi prioritas.</p></div></div>
+  <dl class="ket"><dt>Data</dt><dd>BPS, Statistik E-Commerce 2024: indeks keterkuncian (Lampiran 23), % usaha yang menyebut jasa pengiriman sebagai kendala utama (Lampiran 29), dan jumlah usaha online (Lampiran 3) untuk 38 provinsi.</dd><dt>Cara baca</dt><dd>Satu titik = satu provinsi, besar titik = jumlah usaha online. Kanan = makin jarang mengirim ke pulau lain. Atas = makin sulit mengirim. Garis putus = median. Kuadran kanan atas = 13 provinsi prioritas.</dd><dt>Temuan</dt><dd><b>Wilayah paling terkunci juga paling sulit mengirim. Di Maluku &amp; Papua (indeks 97,00), 10,58% usaha menyebut pengiriman sebagai kendala utama, dua kali lipat Jawa (4,97%).</b></dd></dl></div></div>
   <div class="sec"><div id="sc"></div>
   <p class="note" style="margin-top:8px">Indeks Keterkuncian Pulau = 100 − jumlah % usaha yang melayani pulau lain (batas bawah). Garis putus = median 38 provinsi. Lingkaran putus-putus = RSE di atas 10% (kurang presisi). Sumber: BPS Lampiran 3, 23, 29 (diolah).</p></div>
 </section>
 
 <section class="blk">
   <div class="row"><div class="c"><span class="k">Data per provinsi</span><h2>38 provinsi, <span>13 jadi prioritas</span></h2>
-  <p class="dek">Satu kotak = satu provinsi, disusun per pulau dari barat ke timur. Angka besar = indeks keterkuncian (makin tinggi, makin jarang kirim ke pulau lain). Kotak oranye = provinsi prioritas. Arahkan kursor ke kotak untuk detail.</p></div></div>
+  <dl class="ket"><dt>Data</dt><dd>Sama dengan temuan 1 dan 3. Angka di kiri tiap baris = rata-rata pulau, dibobot jumlah usaha online.</dd><dt>Cara baca</dt><dd>Satu kotak = satu provinsi, disusun per pulau dari barat ke timur. Angka besar = indeks keterkuncian, angka kecil = % kendala kirim. Oranye = prioritas. Arahkan kursor ke kotak untuk detail.</dd><dt>Temuan</dt><dd><b>Prioritas = indeks dan kendala kirim sama-sama di atas median 38 provinsi (96,63 dan 5,78%). Hasilnya 13 provinsi dengan 534.393 usaha online.</b></dd></dl></div></div>
   <div class="sec"><div id="ubin" class="ubin"></div>
     <p class="note" style="margin-top:12px">Angka kecil di bawah = % usaha yang menyebut jasa pengiriman sebagai kendala utama. * RSE di atas 10% (kurang presisi). Sumber: BPS Statistik E-Commerce 2024 (diolah).</p>
     <details class="lengkap"><summary>Lihat tabel lengkap 38 provinsi (cari, urutkan, filter)</summary>
@@ -201,7 +205,7 @@ async function load(){
     }catch(e){console.warn('Supabase gagal, pakai data.json',e)}
   }
   const d=await fetch('data.json').then(r=>r.json());
-  document.getElementById('src-mode').textContent='data.json (statis)';
+  document.getElementById('src-mode').textContent='data.json (cadangan)';
   return d;
 }
 
