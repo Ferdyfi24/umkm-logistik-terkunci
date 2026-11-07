@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lebih Dekat ke Luar Negeri daripada ke Pulau Sebelah · Dashboard</title>
+<meta name="description" content="Dashboard data logistik UMKM digital Indonesia: Indeks Keterkuncian Pulau 38 provinsi, ongkir satuan vs borongan, biaya tidak resmi, dan provinsi prioritas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#111;--paper:#FCFBF8;--kraft:#B88D5F;--hl:#D9480F;--mut:#555;--line:#111;--grid:#DDD8CE}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--kraft);font-family:Inter,system-ui,sans-serif;color:var(--ink);padding:28px 16px 60px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.lbl{background:var(--paper);border:3px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;border-bottom:3px solid var(--line)}.row:last-child{border-bottom:0}
+.row>.c{padding:16px 20px;flex:1;min-width:220px}.row>.c+.c{border-left:3px solid var(--line)}
+.k{font:700 11px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#444;display:block;margin-bottom:6px;text-transform:uppercase}
+.v{font:700 20px Inter}
+.mono{font-family:'JetBrains Mono',monospace}
+h1{font:800 clamp(30px,5vw,56px)/1.05 Inter;letter-spacing:-.02em;text-transform:uppercase}
+h1 span,h2 span{background:var(--ink);color:var(--paper);padding:0 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+h2{font:800 clamp(22px,3vw,32px)/1.1 Inter;letter-spacing:-.01em;text-transform:uppercase}
+.dek{font:500 17px/1.55 Inter;color:#333;margin-top:10px;max-width:820px}
+.no{background:var(--ink);color:var(--paper);font:800 34px Inter;display:flex;align-items:center;justify-content:center;min-width:110px;flex:0 0 auto!important}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.kpis>div{padding:18px 20px;border-right:3px solid var(--line)}.kpis>div:last-child{border-right:0}
+.kpis b{display:block;font:800 40px/1 'JetBrains Mono',monospace;margin:6px 0}
+.kpis small{font:500 14px Inter;color:#333}
+.sec{padding:22px 20px}
+.note{font:12.5px/1.6 'JetBrains Mono',monospace;color:#333}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.ctrl input,.ctrl select{font:500 15px Inter;padding:8px 10px;border:2px solid var(--ink);background:#fff}
+.btn{font:700 13px 'JetBrains Mono',monospace;padding:8px 12px;border:2px solid var(--ink);background:#fff;cursor:pointer}
+.btn.on{background:var(--ink);color:#fff}
+table{width:100%;border-collapse:collapse}
+th{font:700 11px 'JetBrains Mono',monospace;letter-spacing:.06em;text-align:left;border-bottom:3px solid var(--ink);padding:8px 8px;cursor:pointer;white-space:nowrap;text-transform:uppercase}
+td{border-bottom:1px solid var(--ink);padding:7px 8px;font:500 15px Inter}
+td.n,th.n{text-align:right;font-family:'JetBrains Mono',monospace}
+tr.pri td:first-child{box-shadow:inset 5px 0 0 var(--hl)}
+.scroll{overflow-x:auto}
+.hm td{padding:0;border:2px solid var(--paper)}.hm td div{height:28px;display:flex;align-items:center;justify-content:center;font:700 13px 'JetBrains Mono',monospace}
+.hm td.nm{padding:0 10px 0 0;font:500 14px Inter;white-space:nowrap;border:0}
+.hm th{border-bottom:0;text-align:center;cursor:default}.hm th.hh{font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:.04em;padding:0 2px 6px;white-space:normal;vertical-align:bottom}.hm td div{min-width:64px}
+.tag{display:inline-block;font:700 11px 'JetBrains Mono',monospace;border:2px solid var(--hl);color:var(--hl);padding:1px 6px;margin-left:6px}
+svg text{font-family:Inter}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font:500 13px/1.45 Inter;padding:8px 10px;display:none;z-index:9;max-width:260px}
+footer{font:12px 'JetBrains Mono',monospace;color:#2b1d0e;text-align:center}
+a{color:inherit}
+@media(max-width:700px){.row>.c+.c{border-left:0;border-top:3px solid var(--line)}.kpis>div{border-right:0;border-bottom:3px solid var(--line)}}
+</style>
+</head>
+<body>
+<div class="tip" id="tip"></div>
+<div class="wrap">
+
+<section class="lbl">
+  <div class="row"><div class="c"><span class="v" style="font-size:30px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">DASHBOARD · FINAL PROJECT DATA ANALYTICS · CREATIVE TECHNOLOGY FUTURE TALENTS</div></div><div class="c no">DASH</div></div>
+  <div class="row"><div class="c" style="padding:28px 20px">
+    <h1>Lebih dekat ke luar negeri <span>daripada ke pulau sebelah</span></h1>
+    <p class="dek">UMKM digital Indonesia sudah online, tapi barangnya tertahan di pulau asal. Dashboard ini memuat data per provinsi di balik infografis: siapa yang paling terkunci, berapa ongkosnya, dan di mana solusi sebaiknya dimulai.</p>
+  </div></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="row"><div class="c"><span class="k">Pengirim</span><span class="v">Ferdy Febrian Iskandar</span></div><div class="c"><span class="k">Sumber data</span><span class="v" id="src-mode">memuat…</span></div><div class="c"><span class="k">Tanggal</span><span class="v">November 2026</span></div></div>
+</section>
+
+<section class="lbl">
+  <div class="row"><div class="c"><span class="k">01 · Pasar terkunci</span><h2>Ke mana usaha online <span>mengirim barangnya</span></h2>
+  <p class="dek">Persen usaha e-commerce di provinsi asal yang melayani tiap wilayah tujuan. Kotak gelap = pulau sendiri. Kotak berbingkai oranye = provinsi yang lebih banyak mengirim ke luar negeri daripada ke Jawa.</p></div><div class="c no">01</div></div>
+  <div class="sec scroll"><table class="hm" id="hm"></table>
+  <p class="note" style="margin-top:12px">Sumber: BPS, Statistik E-Commerce 2024, Lampiran 23. Satu usaha bisa melayani lebih dari satu wilayah.</p></div>
+</section>
+
+<section class="lbl">
+  <div class="row"><div class="c"><span class="k">03 · Siapa paling terdampak</span><h2>Paling terkunci, <span>paling sulit mengirim</span></h2>
+  <p class="dek">Tiap titik satu provinsi. Kanan = makin jarang mengirim ke pulau lain. Atas = makin banyak yang menyebut jasa pengiriman sebagai kendala utama. Kuadran kanan atas = 13 provinsi prioritas.</p></div><div class="c no">03</div></div>
+  <div class="sec"><div id="sc"></div>
+  <p class="note" style="margin-top:8px">Indeks Keterkuncian Pulau = 100 − jumlah % usaha yang melayani pulau lain (batas bawah). Garis putus = median 38 provinsi. Lingkaran putus-putus = RSE di atas 10% (kurang presisi). Sumber: BPS Lampiran 3, 23, 29 (diolah).</p></div>
+</section>
+
+<section class="lbl">
+  <div class="row"><div class="c"><span class="k">Tabel lengkap</span><h2>38 provinsi</h2></div><div class="c no">38</div></div>
+  <div class="sec">
+    <div class="ctrl"><input id="q" placeholder="Cari provinsi…" aria-label="Cari provinsi">
+      <select id="fp" aria-label="Filter wilayah"><option value="">Semua wilayah</option></select>
+      <button class="btn" id="bp">Hanya prioritas</button></div>
+    <div class="scroll"><table id="tb"></table></div>
+    <p class="note" style="margin-top:10px">Klik judul kolom untuk mengurutkan. Garis oranye di kiri = provinsi prioritas. * RSE di atas 10%.</p>
+  </div>
+</section>
+
+<section class="lbl">
+  <div class="row"><div class="c"><span class="k">02 · Ongkos menyeberang</span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
+  <p class="dek">Rute sama dari Jakarta. Tarif borongan (kargo laut) baru berlaku mulai 50 kg.</p></div><div class="c no">02</div></div>
+  <div class="sec"><div id="tr"></div>
+  <p class="note">Sumber: cek tarif resmi jet.co.id (5 Nov 2026); kargo laut dari situs forwarder. Tarif kargo belum termasuk biaya konsolidasi dan antar akhir, jadi selisih ini batas atas.</p></div>
+  <div class="row" style="border-top:3px solid var(--line)"><div class="c"><span class="k">Biaya tidak resmi (% perusahaan)</span><div id="wb"></div><p class="note">World Bank Enterprise Survey Indonesia 2023. Tidak mencakup usaha di bawah 5 karyawan dan pungli di jalan.</p></div></div>
+</section>
+
+<section class="lbl">
+  <div class="row"><div class="c"><span class="k">Metode, batasan, sumber</span><h2>Catatan pengiriman</h2></div><div class="c no">i</div></div>
+  <div class="row"><div class="c">
+    <span class="k">Cara data diolah</span>
+    <ul class="dek" style="padding-left:18px;font-size:15px">
+      <li>PDF BPS berupa gambar, diekstrak dengan OCR, lalu dicek balik ke angka resmi: total 4,40 juta usaha, 66,28% di Jawa, kendala kirim nasional 5,30%.</li>
+      <li>Rata-rata per wilayah dibobot jumlah usaha per provinsi.</li>
+      <li>Prioritas = keterkuncian dan kendala kirim sama-sama di atas median.</li>
+      <li>Klaim yang dicabut setelah diuji: "angkutan dari timur pulang kosong" (data bongkar-muat BPS tidak konsisten) dan "UMKM rata-rata kirim 1-3 kg" (tidak ada sumber).</li>
+    </ul></div>
+    <div class="c"><span class="k">Batasan</span>
+    <ul class="dek" style="padding-left:18px;font-size:15px">
+      <li>Data wilayah kirim berupa % usaha, bukan volume barang.</li>
+      <li>RSE Papua Tengah, Papua Barat Daya, dan Papua Pegunungan di atas 10%.</li>
+      <li>Rekomendasi adalah usulan berbasis bukti, belum diuji di Indonesia.</li>
+    </ul></div></div>
+  <div class="sec"><span class="k">Daftar sumber</span><ol id="sm" class="note" style="padding-left:22px;font-size:13.5px;line-height:1.8"></ol></div>
+</section>
+
+<footer>Data & kode: github.com/Ferdyfi24/umkm-logistik-terkunci · Lisensi data mengikuti sumber aslinya</footer>
+</div>
+
+<script src="config.js"></script>
+<script>
+const W=['tujuan_sumatera','tujuan_jawa','tujuan_balinusra','tujuan_kalimantan','tujuan_sulawesi','tujuan_malukupapua','tujuan_luarnegeri'];
+const WH=['Sumatera','Jawa','Bali & NT','Kalimantan','Sulawesi','Maluku & Papua','Luar negeri'];
+const IS=['Sumatera','Jawa','Bali & Nusa Tenggara','Kalimantan','Sulawesi','Maluku & Papua'];
+const f=(v,d=2)=>v==null?'–':Number(v).toLocaleString('id-ID',{minimumFractionDigits:d,maximumFractionDigits:d});
+const rp=v=>'Rp'+Number(v).toLocaleString('id-ID');
+const tip=document.getElementById('tip');
+function showTip(e,h){tip.innerHTML=h;tip.style.display='block';tip.style.left=Math.min(e.clientX+14,innerWidth-280)+'px';tip.style.top=(e.clientY+14)+'px'}
+function hideTip(){tip.style.display='none'}
+
+async function load(){
+  const c=window.FPDA_CONFIG||{};
+  if(c.supabaseUrl&&c.supabaseKey){
+    try{
+      const h={apikey:c.supabaseKey,Authorization:'Bearer '+c.supabaseKey,'Accept-Profile':'fpda'};
+      const get=t=>fetch(`${c.supabaseUrl}/rest/v1/${t}?select=*&order=id_baris`,{headers:h}).then(r=>{if(!r.ok)throw new Error(t);return r.json()});
+      const [provinsi,indikator_nasional,tarif,wbes,sumber]=await Promise.all(['provinsi','indikator_nasional','tarif','wbes','sumber'].map(get));
+      document.getElementById('src-mode').textContent='Supabase (live)';
+      return {provinsi,indikator_nasional,tarif,wbes,sumber};
+    }catch(e){console.warn('Supabase gagal, pakai data.json',e)}
+  }
+  const d=await fetch('data.json').then(r=>r.json());
+  document.getElementById('src-mode').textContent='data.json (statis)';
+  return d;
+}
+
+function kpis(d){
+  const P=d.provinsi,tot=P.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0);
+  const idx=P.reduce((a,r)=>a+r.indeks_keterkuncian*r.jumlah_usaha_ecommerce,0)/tot;
+  const pr=P.filter(r=>r.prioritas);
+  const items=[[f(idx),'Indeks keterkuncian nasional (dari 100 usaha online, tidak kirim ke luar pulau)'],[(tot/1e6).toLocaleString('id-ID',{maximumFractionDigits:2})+' jt','Usaha e-commerce, 38 provinsi'],[pr.length+' prov.','Prioritas titik kumpul kiriman'],[pr.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0).toLocaleString('id-ID'),'Usaha online di provinsi prioritas']];
+  document.getElementById('kpis').innerHTML=items.map(([b,s])=>`<div><span class="k">Angka kunci</span><b>${b}</b><small>${s}</small></div>`).join('');
+}
+
+function heat(d){
+  const sc=v=>{if(v<=0)return['#F1EEE8','#999'];const a=Math.min(v/4.5,1);const l=Math.round(92-a*52);return[`hsl(24,72%,${l}%)`,a>.55?'#fff':'#111']};
+  let h='<tr><th></th>'+WH.map(x=>`<th class="hh">${x}</th>`).join('')+'</tr>',last='';
+  d.provinsi.forEach(r=>{
+    if(r.pulau!==last){h+=`<tr><td colspan="8" style="padding:12px 0 4px;border:0;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#444;text-transform:uppercase">${r.pulau}</td></tr>`;last=r.pulau}
+    const own=IS.indexOf(r.pulau),flag=r.pulau!=='Jawa'&&r.tujuan_luarnegeri>r.tujuan_jawa;
+    h+=`<tr><td class="nm">${r.provinsi}</td>`+W.map((k,i)=>{const v=r[k];
+      if(i===own)return `<td title="${r.provinsi}: pulau sendiri ${f(v)}%"><div style="background:#111;color:#fff">≈100</div></td>`;
+      const [bg,fg]=sc(v);const b=(i===6&&flag)?'outline:3px solid #D9480F;outline-offset:-3px;':'';
+      return `<td><div style="background:${bg};color:${fg};${b}" data-t="${r.provinsi} → ${WH[i]}: ${f(v)}% usaha">${v<=0?'0':f(v,1)}</div></td>`}).join('')+'</tr>';
+  });
+  const t=document.getElementById('hm');t.innerHTML=h;
+  t.querySelectorAll('[data-t]').forEach(el=>{el.onmousemove=e=>showTip(e,el.dataset.t);el.onmouseleave=hideTip});
+}
+
+function med(a){const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2}
+function scatter(d){
+  const P=d.provinsi,W0=1100,H0=520,L=70,R=20,T=20,B=56,X0=89.8,X1=100.3,Y1=15.5;
+  const sx=x=>L+(x-X0)/(X1-X0)*(W0-L-R),sy=y=>H0-B-Math.min(y,Y1)/Y1*(H0-T-B);
+  const mx=med(P.map(r=>r.indeks_keterkuncian)),my=med(P.map(r=>r.kendala_kirim));
+  let s=`<svg viewBox="0 0 ${W0} ${H0}" width="100%" role="img" aria-label="Scatter 38 provinsi: indeks keterkuncian vs kendala pengiriman">`;
+  for(let v=90;v<=100;v+=2)s+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${T}" y2="${H0-B}" stroke="#DDD8CE"/><text x="${sx(v)}" y="${H0-B+20}" font-size="12" text-anchor="middle" fill="#555">${v}</text>`;
+  for(let v=0;v<=15;v+=3)s+=`<line x1="${L}" x2="${W0-R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#DDD8CE"/><text x="${L-8}" y="${sy(v)+4}" font-size="12" text-anchor="end" fill="#555">${v}%</text>`;
+  s+=`<rect x="${sx(mx)}" y="${T}" width="${W0-R-sx(mx)}" height="${sy(my)-T}" fill="rgba(217,72,15,.06)"/>`;
+  s+=`<line x1="${sx(mx)}" x2="${sx(mx)}" y1="${T}" y2="${H0-B}" stroke="#111" stroke-dasharray="5 5"/><line x1="${L}" x2="${W0-R}" y1="${sy(my)}" y2="${sy(my)}" stroke="#111" stroke-dasharray="5 5"/>`;
+  s+=`<text x="${W0-R-8}" y="${T+16}" font-size="13" font-weight="700" fill="#D9480F" text-anchor="end">KUADRAN PRIORITAS</text>`;
+  s+=`<text x="${(L+W0-R)/2}" y="${H0-12}" font-size="13" text-anchor="middle" fill="#111">Indeks keterkuncian pulau →</text>`;
+  [...P].sort((a,b)=>b.jumlah_usaha_ecommerce-a.jumlah_usaha_ecommerce).forEach(r=>{
+    const x=sx(r.indeks_keterkuncian),y=sy(r.kendala_kirim),rr=Math.max(5,Math.sqrt(r.jumlah_usaha_ecommerce)/38),hi=r.rse_pct>10;
+    const fill=hi?'none':(r.prioritas?'#D9480F':'#111'),st=hi?'#D9480F':'#FCFBF8';
+    const t=`<b>${r.provinsi}</b><br>Indeks ${f(r.indeks_keterkuncian)}<br>Kendala kirim ${f(r.kendala_kirim)}%${r.kendala_kirim>Y1?' (di luar skala)':''}<br>${r.jumlah_usaha_ecommerce.toLocaleString('id-ID')} usaha online${hi?'<br>RSE '+f(r.rse_pct)+'% (kurang presisi)':''}`;
+    s+=`<circle cx="${x}" cy="${y}" r="${rr}" fill="${fill}" fill-opacity="${r.prioritas||hi?1:.55}" stroke="${st}" stroke-width="${hi?2.5:1.5}" ${hi?'stroke-dasharray="3 2"':''} data-t="${t.replace(/"/g,'&quot;')}"/>`;
+  });
+  s+='</svg>';
+  const el=document.getElementById('sc');el.innerHTML=s;
+  el.querySelectorAll('[data-t]').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.t);c.onmouseleave=hideTip});
+}
+
+let sortK='indeks_keterkuncian',sortD=-1,onlyP=false;
+const COLS=[['provinsi','Provinsi',0],['pulau','Wilayah',0],['jumlah_usaha_ecommerce','Usaha online',1],['pct_usaha_ecommerce','% jualan online',1],['indeks_keterkuncian','Keterkuncian',1],['kendala_kirim','Kendala kirim %',1],['tujuan_jawa','Kirim ke Jawa %',1],['tujuan_luarnegeri','Ke luar negeri %',1],['jasa_kurir_pct','Pakai kurir %',1]];
+function table(d){
+  const q=document.getElementById('q').value.toLowerCase(),fp=document.getElementById('fp').value;
+  const rows=d.provinsi.filter(r=>(!q||r.provinsi.toLowerCase().includes(q))&&(!fp||r.pulau===fp)&&(!onlyP||r.prioritas))
+    .sort((a,b)=>(a[sortK]>b[sortK]?1:a[sortK]<b[sortK]?-1:0)*sortD);
+  let h='<tr>'+COLS.map(([k,n,num])=>`<th class="${num?'n':''}" data-k="${k}">${n}${sortK===k?(sortD>0?' ↑':' ↓'):''}</th>`).join('')+'</tr>';
+  h+=rows.map(r=>`<tr class="${r.prioritas?'pri':''}">`+COLS.map(([k,,num])=>{
+    let v=r[k];if(k==='provinsi')return `<td>${v}${r.rse_pct>10?' *':''}${r.prioritas?'<span class="tag">PRIORITAS</span>':''}</td>`;
+    if(k==='jumlah_usaha_ecommerce')return `<td class="n">${v.toLocaleString('id-ID')}</td>`;
+    return num?`<td class="n">${f(v)}</td>`:`<td>${v}</td>`}).join('')+'</tr>').join('');
+  const t=document.getElementById('tb');t.innerHTML=h;
+  t.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;sortD=sortK===k?-sortD:-1;sortK=k;table(d)});
+}
+
+function bars(el,items,max,unit){
+  const W0=1000,L=300,R=150,bh=30,g=10;let y=8,s='';
+  items.forEach(it=>{
+    if(it.head){s+=`<text x="0" y="${y+18}" font-size="16" font-weight="800">${it.head}</text>${it.right?`<text x="${W0}" y="${y+18}" font-size="15" font-weight="800" fill="#D9480F" text-anchor="end">${it.right}</text>`:''}`;y+=30;return}
+    const w=Math.max(3,it.v/max*(W0-L-R));
+    s+=`<text x="${L-12}" y="${y+bh/2+5}" font-size="14" text-anchor="end">${it.l}</text><rect x="${L}" y="${y}" width="${w}" height="${bh}" fill="${it.hi?'#D9480F':'#111'}"/><text x="${L+w+10}" y="${y+bh/2+6}" font-size="15" font-weight="700" font-family="JetBrains Mono" fill="${it.hi?'#D9480F':'#111'}">${unit(it.v)}</text>`;
+    y+=bh+g;
+  });
+  el.innerHTML=`<svg viewBox="0 0 ${W0} ${y+6}" width="100%">${s}</svg>`;
+}
+
+function tarif(d){
+  const T=d.tarif,g=(r,l)=>T.find(t=>t.rute.startsWith(r)&&t.layanan.startsWith(l));
+  const kEZ=g('Jakarta-Kupang (Oebobo)','J&T EZ'),kECO=g('Jakarta-Kupang (Oebobo)','J&T ECO'),kK=g('Jakarta-Kupang','LSJ'),jEZ=g('Jakarta-Jayapura (Jayapura','J&T EZ'),jK=g('Jakarta-Jayapura','LOP');
+  const x=(a,b)=>Math.round(a.tarif_rp_per_kg/b.tarif_rp_per_kg)+'×';
+  bars(document.getElementById('tr'),[
+    {head:'Ke Kota Kupang',right:`${x(kECO,kK)}–${x(kEZ,kK)} lebih mahal per kg`},
+    {l:'Reguler (J&T EZ, 1 kg)',v:kEZ.tarif_rp_per_kg},{l:'Ekonomi (J&T ECO, 1 kg)',v:kECO.tarif_rp_per_kg},{l:'Borongan (kargo laut, min. 50 kg)',v:kK.tarif_rp_per_kg,hi:1},
+    {head:'Ke Jayapura',right:`${x(jEZ,jK)} lebih mahal per kg`},
+    {l:'Reguler (J&T EZ, 1 kg)',v:jEZ.tarif_rp_per_kg},{l:'Borongan (kargo laut, min. 50 kg)',v:jK.tarif_rp_per_kg,hi:1}],120000,v=>rp(v)+'/kg');
+  const w=d.wbes,gw=k=>w.find(r=>r.indikator===k&&r.kelompok==='semua');
+  const it=[];[['bribery_incidence','Pernah dimintai suap oleh pejabat'],['hadiah_ke_pejabat','Merasa harus memberi "hadiah" agar urusan lancar']].forEach(([k,n])=>{const r=gw(k);it.push({head:n},{l:'Indonesia',v:r.indonesia,hi:1},{l:'Asia Timur & Pasifik',v:r.asia_timur_pasifik},{l:'Rata-rata dunia',v:r.dunia})});
+  bars(document.getElementById('wb'),it,35,v=>f(v,1)+'%');
+}
+
+function sumber(d){document.getElementById('sm').innerHTML=d.sumber.map(s=>`<li>${s.penerbit} (${s.tahun}). ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${s.judul}</a>`:s.judul}${s.kuartil_sjr?` <b>[SJR ${s.kuartil_sjr}]</b>`:''}</li>`).join('')}
+
+load().then(d=>{
+  kpis(d);heat(d);scatter(d);tarif(d);sumber(d);
+  const fp=document.getElementById('fp');IS.forEach(p=>fp.insertAdjacentHTML('beforeend',`<option>${p}</option>`));
+  ['q','fp'].forEach(id=>document.getElementById(id).oninput=()=>table(d));
+  document.getElementById('bp').onclick=e=>{onlyP=!onlyP;e.target.classList.toggle('on',onlyP);table(d)};
+  table(d);
+}).catch(e=>{document.getElementById('src-mode').textContent='gagal memuat data';console.error(e)});
+</script>
+</body>
+</html>

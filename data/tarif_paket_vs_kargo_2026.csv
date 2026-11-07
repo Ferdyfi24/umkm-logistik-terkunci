@@ -1,0 +1,8 @@
+rute,jenis,layanan,tarif_rp_per_kg,minimal_kg,sumber,tanggal_cek,catatan
+Jakarta-Kupang (Oebobo),paket satuan,J&T EZ (reguler),78000,1,jet.co.id (resmi),2026-11-05,
+Jakarta-Kupang (Oebobo),paket satuan,J&T ECO (ekonomi),39000,1,jet.co.id (resmi),2026-11-05,
+Jakarta-Kupang,kargo laut,LSJ Express,5700,50,lsjexpress.com (forwarder),2026-11-05,tarif publik forwarder
+Jakarta-Jayapura (Jayapura Utara),paket satuan,J&T EZ (reguler),100000,1,jet.co.id (resmi),2026-11-05,ECO tidak tersedia
+Jakarta-Jayapura,kargo laut,LOPExpress,7200,50,lopexpress.id (forwarder),2026-11-05,tarif terendah; forwarder lain s.d. Rp14.000
+Jakarta-Kupang (Semau Selatan),paket satuan,J&T EZ,77000,1,jet.co.id (dicek Ferdy),2026-11-05,Pulau Semau
+Kupang (Amfoang Barat Daya)-Jakarta,paket satuan,J&T EZ,32000,1,jet.co.id (dicek Ferdy),2026-11-05,arah balik
