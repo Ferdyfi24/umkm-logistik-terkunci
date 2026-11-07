@@ -77,6 +77,25 @@ svg text{font-family:Inter}
 .ket dt{font:700 11px/1.9 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#777}
 .ket dd b{font-weight:700;color:var(--ink)}
 @media(max-width:700px){.ket{grid-template-columns:1fr;gap:0}.ket dt{margin-top:8px}}
+.fbar{position:sticky;top:0;z-index:6;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;background:var(--paper);border:3px solid var(--ink);padding:10px 14px;margin-bottom:22px;box-shadow:6px 6px 0 rgba(43,29,14,.38)}
+.fbar select,.fbar input{font:500 14px Inter;padding:6px 8px;border:2px solid var(--ink);background:#fff;color:var(--ink)}
+.fbar input{width:190px}
+.fl{font:800 12px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:7px 9px}
+.fl2{font:700 11px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:#444;display:flex;gap:6px;align-items:center}
+.fc{margin-left:auto;font:700 12px 'JetBrains Mono',monospace;color:#444}
+.nas{font-style:normal;border:1.5px solid #888;color:#666;padding:0 5px;margin-left:8px;font-size:9.5px;letter-spacing:.04em;white-space:nowrap}
+.kartu{position:fixed;right:18px;bottom:18px;z-index:8;width:310px;background:var(--paper);border:3px solid var(--ink);box-shadow:8px 8px 0 rgba(43,29,14,.45)}
+.kartu[hidden]{display:none}
+.kartu .kh{background:var(--ink);color:var(--paper);padding:10px 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.kartu .kh b{font:800 17px Inter;display:block}
+.kartu .x{background:none;border:0;color:var(--paper);font:700 22px/1 Inter;cursor:pointer}
+.kartu dl{display:grid;grid-template-columns:1fr auto;gap:3px 10px;padding:10px 12px 6px;font:500 13.5px Inter}
+.kartu dd{font:700 13.5px 'JetBrains Mono',monospace;text-align:right}
+.kartu .kp{padding:4px 12px 12px;font:500 12px/1.5 Inter;color:#333;border-top:2px solid var(--ink);margin-top:4px;padding-top:8px}
+.hm td.nm{cursor:pointer}.hm tr.sel-row td.nm{background:var(--ink);color:#fff;padding-left:8px}
+tr.sel-tr td{background:#f3ece2}
+.ub{cursor:pointer}.ub.sel{outline:4px solid var(--ink);outline-offset:2px}.ub.dim{opacity:.2}
+@media(max-width:700px){.fbar{position:static}.fbar input{width:100%}.fc{margin-left:0}.kartu{left:10px;right:10px;width:auto;bottom:10px}}
 footer{font:12px 'JetBrains Mono',monospace;color:#2b1d0e;text-align:center}
 a{color:inherit}
 @media(max-width:700px){.row>.c+.c{border-left:0;border-top:3px solid var(--line)}.kpis>div{border-right:0;border-bottom:3px solid var(--line)}}
@@ -85,12 +104,22 @@ a{color:inherit}
 <body>
 <div class="tip" id="tip"></div>
 <div class="wrap">
+<div class="fbar" id="fbar">
+  <span class="fl">Filter</span>
+  <select id="f-wil" aria-label="Pilih wilayah"><option value="">Semua wilayah</option></select>
+  <button class="btn" id="f-pri" aria-pressed="false">Hanya prioritas</button>
+  <input id="f-prov" list="dl-prov" placeholder="Cari provinsi…" aria-label="Cari dan sorot satu provinsi"><datalist id="dl-prov"></datalist>
+  <label class="fl2">Angka di peta ubin <select id="f-uk"><option value="indeks_keterkuncian">Keterkuncian</option><option value="kendala_kirim">Kendala kirim %</option><option value="pct_usaha_ecommerce">% jualan online</option></select></label>
+  <button class="btn" id="f-reset">Reset</button>
+  <span class="fc" id="f-count"></span>
+</div>
+<aside class="kartu" id="kartu" hidden aria-live="polite"></aside>
 <main class="lbl one">
 <section class="blk hdr">
   <div class="row"><div class="c"><span class="v" style="font-size:30px;font-weight:800">MANIFEST DATA</span><div class="note" style="margin-top:4px">RESI 1/3 · DASHBOARD FINAL PROJECT DATA ANALYTICS · CREATIVE TECHNOLOGY FUTURE TALENTS</div></div><div class="c no resi"><span>Resi</span>1 dari 3</div></div>
   <div class="row"><div class="c" style="padding:28px 20px">
     <h1>Lebih dekat ke luar negeri <span>daripada ke pulau sebelah</span></h1>
-    <p class="dek">UMKM digital Indonesia sudah online, tapi barangnya tertahan di pulau asal. Dashboard ini memuat data per provinsi di balik infografis: siapa yang paling terkunci, berapa ongkosnya, dan di mana solusi sebaiknya dimulai.</p>
+    <p class="dek">UMKM digital Indonesia sudah online, tapi barangnya tertahan di pulau asal. Dashboard ini memuat data per provinsi di balik infografis: siapa yang paling terkunci, berapa ongkosnya, dan di mana solusi sebaiknya dimulai. Pakai bar filter di atas untuk memilih wilayah, hanya provinsi prioritas, atau menyorot satu provinsi.</p>
   </div></div>
   <div class="kpis" id="kpis"></div>
   <div class="row g4"><div class="c"><span class="k">Pengirim</span><span class="v">Ferdy Febrian Iskandar</span></div><div class="c"><span class="k">Sumber data</span><span class="v">BPS · World Bank · J&amp;T</span></div><div class="c"><span class="k">Database</span><span class="v" id="src-mode">memuat…</span></div><div class="c"><span class="k">Tanggal</span><span class="v">November 2026</span></div></div>
@@ -105,14 +134,14 @@ a{color:inherit}
 </section>
 <div class="col">
 <section class="blk">
-  <div class="row"><div class="c"><span class="k">Temuan 2 · Ongkos menyeberang</span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
+  <div class="row"><div class="c"><span class="k">Temuan 2 · Ongkos menyeberang <em class="nas">data nasional, tidak ikut filter</em></span><h2>Kirim satuan <span>sampai 14× lebih mahal</span> per kg</h2>
   <dl class="ket"><dt>Data</dt><dd>Tarif resmi J&amp;T (jet.co.id, dicek 5 Nov 2026) untuk kiriman 1 kg dari Jakarta, dibanding tarif kargo laut forwarder yang baru berlaku mulai 50 kg. Biaya tidak resmi dari World Bank Enterprise Survey Indonesia 2023.</dd><dt>Cara baca</dt><dd>Panjang batang = rupiah per kg atau % perusahaan. Oranye = kirim borongan dan Indonesia.</dd><dt>Temuan</dt><dd><b>Per kg, kirim satuan ke Kupang 7-14× dan ke Jayapura 14× lebih mahal daripada borongan. 20,3% perusahaan di Indonesia pernah dimintai suap, di atas rata-rata Asia Timur &amp; Pasifik (12,8%).</b></dd></dl></div></div>
   <div class="sec"><div id="tr"></div>
   <p class="note">Sumber: cek tarif resmi jet.co.id (5 Nov 2026); kargo laut dari situs forwarder. Tarif kargo belum termasuk biaya konsolidasi dan antar akhir, jadi selisih ini batas atas.</p></div>
   <div class="row" style="border-top:3px solid var(--line)"><div class="c"><span class="k">Biaya tidak resmi (% perusahaan)</span><div id="wb"></div><p class="note">World Bank Enterprise Survey Indonesia 2023. Tidak mencakup usaha di bawah 5 karyawan dan pungli di jalan.</p></div></div>
 </section>
 <section class="blk rek">
-  <div class="row"><div class="c"><span class="k">Solusi · satu per temuan</span><h2>Kumpulkan dulu, <span>baru seberangkan</span></h2></div></div>
+  <div class="row"><div class="c"><span class="k">Solusi · satu per temuan <em class="nas">tidak ikut filter</em></span><h2>Kumpulkan dulu, <span>baru seberangkan</span></h2></div></div>
   <div class="sec"><ol class="rk">
     <li><b>Titik kumpul kiriman antarpulau berbasis AI.</b> Lewat agregator, koperasi, sentra ekraf, atau kemitraan ekspedisi. Kiriman kecil digabung sampai masuk tarif kargo, jadi menjawab ongkos 14× di temuan 2.</li>
     <li><b>Mulai dari 13 provinsi prioritas.</b> Kuadran kanan atas di temuan 3, sekitar 534 ribu usaha online. Sekalian pelatihan AI praktis untuk pemasaran ke luar pulau (kendala tenaga terampil 16,03%, pemasaran 20,52%).</li>
@@ -133,22 +162,19 @@ a{color:inherit}
 </section>
 <section class="blk">
   <div class="row"><div class="c"><span class="k">Temuan 3 · Siapa paling terdampak</span><h2>Paling terkunci, <span>paling sulit mengirim</span></h2>
-  <dl class="ket"><dt>Data</dt><dd>BPS, Statistik E-Commerce 2024: indeks keterkuncian (Lampiran 23), % usaha yang menyebut jasa pengiriman sebagai kendala utama (Lampiran 29), dan jumlah usaha online (Lampiran 3) untuk 38 provinsi.</dd><dt>Cara baca</dt><dd>Satu titik = satu provinsi, besar titik = jumlah usaha online. Kanan = makin jarang mengirim ke pulau lain. Atas = makin sulit mengirim. Garis putus = median. Kuadran kanan atas = 13 provinsi prioritas.</dd><dt>Temuan</dt><dd><b>Wilayah paling terkunci juga paling sulit mengirim. Di Maluku &amp; Papua (indeks 97,00), 10,58% usaha menyebut pengiriman sebagai kendala utama, dua kali lipat Jawa (4,97%).</b></dd></dl></div></div>
+  <dl class="ket"><dt>Data</dt><dd>BPS, Statistik E-Commerce 2024: indeks keterkuncian (Lampiran 23), % usaha yang menyebut jasa pengiriman sebagai kendala utama (Lampiran 29), dan jumlah usaha online (Lampiran 3) untuk 38 provinsi.</dd><dt>Cara baca</dt><dd>Satu titik = satu provinsi, besar titik = jumlah usaha online. Kanan = makin jarang mengirim ke pulau lain. Atas = makin sulit mengirim. Garis putus = median 38 provinsi. Kuadran kanan atas = 13 provinsi prioritas. Titik pudar = tidak cocok dengan filter, klik titik untuk kartu detail.</dd><dt>Temuan</dt><dd><b>Wilayah paling terkunci juga paling sulit mengirim. Di Maluku &amp; Papua (indeks 97,00), 10,58% usaha menyebut pengiriman sebagai kendala utama, dua kali lipat Jawa (4,97%).</b></dd></dl></div></div>
   <div class="sec"><div id="sc"></div>
   <p class="note" style="margin-top:8px">Indeks Keterkuncian Pulau = 100 − jumlah % usaha yang melayani pulau lain (batas bawah). Garis putus = median 38 provinsi. Lingkaran putus-putus = RSE di atas 10% (kurang presisi). Sumber: BPS Lampiran 3, 23, 29 (diolah).</p></div>
 </section>
 
 <section class="blk">
   <div class="row"><div class="c"><span class="k">Data per provinsi</span><h2>38 provinsi, <span>13 jadi prioritas</span></h2>
-  <dl class="ket"><dt>Data</dt><dd>Sama dengan temuan 1 dan 3. Angka di kiri tiap baris = rata-rata pulau, dibobot jumlah usaha online.</dd><dt>Cara baca</dt><dd>Satu kotak = satu provinsi, disusun per pulau dari barat ke timur. Angka besar = indeks keterkuncian, angka kecil = % kendala kirim. Oranye = prioritas. Arahkan kursor ke kotak untuk detail.</dd><dt>Temuan</dt><dd><b>Prioritas = indeks dan kendala kirim sama-sama di atas median 38 provinsi (96,63 dan 5,78%). Hasilnya 13 provinsi dengan 534.393 usaha online.</b></dd></dl></div></div>
+  <dl class="ket"><dt>Data</dt><dd>Sama dengan temuan 1 dan 3. Angka di kiri tiap baris = rata-rata pulau, dibobot jumlah usaha online.</dd><dt>Cara baca</dt><dd>Satu kotak = satu provinsi, disusun per pulau dari barat ke timur. Angka besar bisa diganti lewat "Angka di peta ubin" di bar filter. Oranye = prioritas, pudar = tidak cocok dengan filter. Klik kotak untuk kartu detail.</dd><dt>Temuan</dt><dd><b>Prioritas = indeks dan kendala kirim sama-sama di atas median 38 provinsi (96,63 dan 5,78%). Hasilnya 13 provinsi dengan 534.393 usaha online.</b></dd></dl></div></div>
   <div class="sec"><div id="ubin" class="ubin"></div>
-    <p class="note" style="margin-top:12px">Angka kecil di bawah = % usaha yang menyebut jasa pengiriman sebagai kendala utama. * RSE di atas 10% (kurang presisi). Sumber: BPS Statistik E-Commerce 2024 (diolah).</p>
-    <details class="lengkap"><summary>Lihat tabel lengkap 38 provinsi (cari, urutkan, filter)</summary>
-    <div class="ctrl"><input id="q" placeholder="Cari provinsi…" aria-label="Cari provinsi">
-      <select id="fp" aria-label="Filter wilayah"><option value="">Semua wilayah</option></select>
-      <button class="btn" id="bp">Hanya prioritas</button></div>
+    <p class="note" style="margin-top:12px" id="ub-cap"></p>
+    <details class="lengkap"><summary>Lihat tabel lengkap provinsi (ikut filter di atas, klik judul kolom untuk mengurutkan)</summary>
     <div class="scroll"><table id="tb"></table></div>
-    <p class="note" style="margin-top:10px">Klik judul kolom untuk mengurutkan. Garis oranye di kiri = provinsi prioritas. * RSE di atas 10%.</p>
+    <p class="note" style="margin-top:10px">Klik baris untuk kartu detail. Garis oranye di kiri = provinsi prioritas. * RSE di atas 10%.</p>
     </details>
   </div>
 </section>
@@ -211,34 +237,43 @@ async function load(){
   return d;
 }
 
+const S={wil:'',pri:false,prov:null,uk:'indeks_keterkuncian'};let D=null,MX=0,MY=0;
+const UK={indeks_keterkuncian:['Keterkuncian',v=>f(v,1),1],kendala_kirim:['Kendala kirim',v=>f(v,1)+'%',1],pct_usaha_ecommerce:['% jualan online',v=>f(v,1)+'%',0]};
+const cocok=r=>(!S.wil||r.pulau===S.wil)&&(!S.pri||r.prioritas);
+const lingkup=()=>S.pri?(S.wil?S.wil+', prioritas':'provinsi prioritas'):(S.wil||'nasional');
+function pilih(n){S.prov=(n&&S.prov!==n)?n:null;document.getElementById('f-prov').value=S.prov||'';render()}
+function ikatKlik(el){el.querySelectorAll('[data-p]').forEach(x=>{x.onclick=e=>{e.stopPropagation();hideTip();pilih(x.dataset.p)}})}
+function ikatTip(el){el.querySelectorAll('[data-t]').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.t);c.onmouseleave=hideTip})}
+
 function kpis(d){
-  const P=d.provinsi,tot=P.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0);
-  const idx=P.reduce((a,r)=>a+r.indeks_keterkuncian*r.jumlah_usaha_ecommerce,0)/tot;
-  const pr=P.filter(r=>r.prioritas);
-  const items=[[f(idx),'Indeks keterkuncian nasional (dari 100 usaha online, tidak kirim ke luar pulau)'],[(tot/1e6).toLocaleString('id-ID',{maximumFractionDigits:2})+' jt','Usaha e-commerce, 38 provinsi'],[pr.length+' prov.','Prioritas titik kumpul kiriman'],[pr.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0).toLocaleString('id-ID'),'Usaha online di provinsi prioritas']];
-  document.getElementById('kpis').innerHTML=items.map(([b,s])=>`<div><span class="k">Angka kunci</span><b>${b}</b><small>${s}</small></div>`).join('');
+  const F=d.provinsi.filter(cocok),tot=F.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0);
+  const idx=tot?F.reduce((a,r)=>a+r.indeks_keterkuncian*r.jumlah_usaha_ecommerce,0)/tot:null;
+  const pr=F.filter(r=>r.prioritas),usaha=v=>v>=1e6?(v/1e6).toLocaleString('id-ID',{maximumFractionDigits:2})+' jt':v.toLocaleString('id-ID');
+  const items=[[idx==null?'–':f(idx),`Indeks keterkuncian ${lingkup()} (dari 100 usaha online, tidak kirim ke luar pulau)`],[usaha(tot),`Usaha e-commerce, ${F.length} provinsi`],[pr.length+' prov.','Prioritas titik kumpul kiriman'],[pr.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0).toLocaleString('id-ID'),'Usaha online di provinsi prioritas']];
+  document.getElementById('kpis').innerHTML=items.map(([b,s])=>`<div><span class="k">Angka kunci${S.wil||S.pri?' · '+lingkup():''}</span><b>${b}</b><small>${s}</small></div>`).join('');
 }
 
 function heat(d){
   const sc=v=>{if(v<=0)return['#F1EEE8','#999'];const a=Math.min(v/4.5,1);const l=Math.round(92-a*52);return[`hsl(24,72%,${l}%)`,a>.55?'#fff':'#111']};
   let h='<tr><th></th>'+WH.map(x=>`<th class="hh">${x}</th>`).join('')+'</tr>',last='';
-  d.provinsi.forEach(r=>{
+  const F=d.provinsi.filter(cocok);
+  F.forEach(r=>{
     if(r.pulau!==last){h+=`<tr><td colspan="8" style="padding:12px 0 4px;border:0;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#444;text-transform:uppercase">${r.pulau}</td></tr>`;last=r.pulau}
     const own=IS.indexOf(r.pulau),flag=r.pulau!=='Jawa'&&r.tujuan_luarnegeri>r.tujuan_jawa;
-    h+=`<tr><td class="nm">${r.provinsi}</td>`+W.map((k,i)=>{const v=r[k];
+    h+=`<tr class="${S.prov===r.provinsi?'sel-row':''}"><td class="nm" data-p="${r.provinsi}">${r.provinsi}</td>`+W.map((k,i)=>{const v=r[k];
       if(i===own)return `<td title="${r.provinsi}: pulau sendiri ${f(v)}%"><div style="background:#111;color:#fff">≈100</div></td>`;
       const [bg,fg]=sc(v);const b=(i===6&&flag)?'outline:3px solid #D9480F;outline-offset:-3px;':'';
       return `<td><div style="background:${bg};color:${fg};${b}" data-t="${r.provinsi} → ${WH[i]}: ${f(v)}% usaha">${v<=0?'0':f(v,1)}</div></td>`}).join('')+'</tr>';
   });
-  const t=document.getElementById('hm');t.innerHTML=h;
-  t.querySelectorAll('[data-t]').forEach(el=>{el.onmousemove=e=>showTip(e,el.dataset.t);el.onmouseleave=hideTip});
+  if(!F.length)h+='<tr><td colspan="8" class="note" style="padding:14px 0">Tidak ada provinsi yang cocok dengan filter.</td></tr>';
+  const t=document.getElementById('hm');t.innerHTML=h;ikatTip(t);ikatKlik(t);
 }
 
 function med(a){const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2}
 function scatter(d){
   const P=d.provinsi,W0=1100,H0=520,L=70,R=20,T=20,B=56,X0=89.8,X1=100.3,Y1=15.5;
   const sx=x=>L+(x-X0)/(X1-X0)*(W0-L-R),sy=y=>H0-B-Math.min(y,Y1)/Y1*(H0-T-B);
-  const mx=med(P.map(r=>r.indeks_keterkuncian)),my=med(P.map(r=>r.kendala_kirim));
+  const mx=MX,my=MY;
   let s=`<svg viewBox="0 0 ${W0} ${H0}" width="100%" role="img" aria-label="Scatter 38 provinsi: indeks keterkuncian vs kendala pengiriman">`;
   for(let v=90;v<=100;v+=2)s+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${T}" y2="${H0-B}" stroke="#DDD8CE"/><text x="${sx(v)}" y="${H0-B+20}" font-size="12" text-anchor="middle" fill="#555">${v}</text>`;
   for(let v=0;v<=15;v+=3)s+=`<line x1="${L}" x2="${W0-R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#DDD8CE"/><text x="${L-8}" y="${sy(v)+4}" font-size="12" text-anchor="end" fill="#555">${v}%</text>`;
@@ -246,40 +281,57 @@ function scatter(d){
   s+=`<line x1="${sx(mx)}" x2="${sx(mx)}" y1="${T}" y2="${H0-B}" stroke="#111" stroke-dasharray="5 5"/><line x1="${L}" x2="${W0-R}" y1="${sy(my)}" y2="${sy(my)}" stroke="#111" stroke-dasharray="5 5"/>`;
   s+=`<text x="${W0-R-8}" y="${T+16}" font-size="13" font-weight="700" fill="#D9480F" text-anchor="end">KUADRAN PRIORITAS</text>`;
   s+=`<text x="${(L+W0-R)/2}" y="${H0-12}" font-size="13" text-anchor="middle" fill="#111">Indeks keterkuncian pulau →</text>`;
+  let sel='';
   [...P].sort((a,b)=>b.jumlah_usaha_ecommerce-a.jumlah_usaha_ecommerce).forEach(r=>{
-    const x=sx(r.indeks_keterkuncian),y=sy(r.kendala_kirim),rr=Math.max(5,Math.sqrt(r.jumlah_usaha_ecommerce)/38),hi=r.rse_pct>10;
+    const x=sx(r.indeks_keterkuncian),y=sy(r.kendala_kirim),rr=Math.max(5,Math.sqrt(r.jumlah_usaha_ecommerce)/38),hi=r.rse_pct>10,on=cocok(r);
     const fill=hi?'none':(r.prioritas?'#D9480F':'#111'),st=hi?'#D9480F':'#FCFBF8';
-    const t=`<b>${r.provinsi}</b><br>Indeks ${f(r.indeks_keterkuncian)}<br>Kendala kirim ${f(r.kendala_kirim)}%${r.kendala_kirim>Y1?' (di luar skala)':''}<br>${r.jumlah_usaha_ecommerce.toLocaleString('id-ID')} usaha online${hi?'<br>RSE '+f(r.rse_pct)+'% (kurang presisi)':''}`;
-    s+=`<circle cx="${x}" cy="${y}" r="${rr}" fill="${fill}" fill-opacity="${r.prioritas||hi?1:.55}" stroke="${st}" stroke-width="${hi?2.5:1.5}" ${hi?'stroke-dasharray="3 2"':''} data-t="${t.replace(/"/g,'&quot;')}"/>`;
+    const t=`<b>${r.provinsi}</b><br>Indeks ${f(r.indeks_keterkuncian)}<br>Kendala kirim ${f(r.kendala_kirim)}%${r.kendala_kirim>Y1?' (di luar skala)':''}<br>${r.jumlah_usaha_ecommerce.toLocaleString('id-ID')} usaha online${hi?'<br>RSE '+f(r.rse_pct)+'% (kurang presisi)':''}<br><i>Klik untuk kartu detail</i>`;
+    s+=`<circle cx="${x}" cy="${y}" r="${rr}" fill="${fill}" fill-opacity="${r.prioritas||hi?1:.55}" stroke="${st}" stroke-width="${hi?2.5:1.5}" ${hi?'stroke-dasharray="3 2"':''} opacity="${on?1:.12}" style="cursor:pointer" data-p="${r.provinsi}" data-t="${t.replace(/"/g,'&quot;')}"/>`;
+    if(S.prov===r.provinsi){const tx=x>W0-260?x-rr-12:x+rr+12;sel=`<circle cx="${x}" cy="${y}" r="${rr+7}" fill="none" stroke="#111" stroke-width="3" pointer-events="none"/><text x="${tx}" y="${y-rr-6}" font-size="15" font-weight="800" text-anchor="${x>W0-260?'end':'start'}" pointer-events="none" paint-order="stroke" stroke="#FCFBF8" stroke-width="5">${r.provinsi}</text>`}
   });
-  s+='</svg>';
-  const el=document.getElementById('sc');el.innerHTML=s;
-  el.querySelectorAll('[data-t]').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.t);c.onmouseleave=hideTip});
+  s+=sel+'</svg>';
+  const el=document.getElementById('sc');el.innerHTML=s;ikatTip(el);ikatKlik(el);
 }
 
-let sortK='indeks_keterkuncian',sortD=-1,onlyP=false;
+let sortK='indeks_keterkuncian',sortD=-1;
 const COLS=[['provinsi','Provinsi',0],['pulau','Wilayah',0],['jumlah_usaha_ecommerce','Usaha online',1],['pct_usaha_ecommerce','% jualan online',1],['indeks_keterkuncian','Keterkuncian',1],['kendala_kirim','Kendala kirim %',1],['tujuan_jawa','Kirim ke Jawa %',1],['tujuan_luarnegeri','Ke luar negeri %',1],['jasa_kurir_pct','Pakai kurir %',1]];
 function table(d){
-  const q=document.getElementById('q').value.toLowerCase(),fp=document.getElementById('fp').value;
-  const rows=d.provinsi.filter(r=>(!q||r.provinsi.toLowerCase().includes(q))&&(!fp||r.pulau===fp)&&(!onlyP||r.prioritas))
-    .sort((a,b)=>(a[sortK]>b[sortK]?1:a[sortK]<b[sortK]?-1:0)*sortD);
+  const rows=d.provinsi.filter(cocok).sort((a,b)=>(a[sortK]>b[sortK]?1:a[sortK]<b[sortK]?-1:0)*sortD);
   let h='<tr>'+COLS.map(([k,n,num])=>`<th class="${num?'n':''}" data-k="${k}">${n}${sortK===k?(sortD>0?' ↑':' ↓'):''}</th>`).join('')+'</tr>';
-  h+=rows.map(r=>`<tr class="${r.prioritas?'pri':''}">`+COLS.map(([k,,num])=>{
+  h+=rows.map(r=>`<tr class="${r.prioritas?'pri':''}${S.prov===r.provinsi?' sel-tr':''}" data-p="${r.provinsi}" style="cursor:pointer">`+COLS.map(([k,,num])=>{
     let v=r[k];if(k==='provinsi')return `<td>${v}${r.rse_pct>10?' *':''}${r.prioritas?'<span class="tag">PRIORITAS</span>':''}</td>`;
     if(k==='jumlah_usaha_ecommerce')return `<td class="n">${v.toLocaleString('id-ID')}</td>`;
     return num?`<td class="n">${f(v)}</td>`:`<td>${v}</td>`}).join('')+'</tr>').join('');
-  const t=document.getElementById('tb');t.innerHTML=h;
+  const t=document.getElementById('tb');t.innerHTML=h;ikatKlik(t);
   t.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;sortD=sortK===k?-sortD:-1;sortK=k;table(d)});
 }
 
 function ubin(d){
-  const P=d.provinsi;let h='';
-  IS.forEach(pl=>{const rs=P.filter(r=>r.pulau===pl),tot=rs.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0),ix=rs.reduce((a,r)=>a+r.indeks_keterkuncian*r.jumlah_usaha_ecommerce,0)/tot;
-    h+=`<div class="ub-r"><div class="ub-l">${pl}<b>${f(ix)}</b></div>`+rs.map(r=>{
-      const t=`<b>${r.provinsi}</b>${r.prioritas?' · PRIORITAS':''}<br>Indeks keterkuncian ${f(r.indeks_keterkuncian)}<br>Kendala kirim ${f(r.kendala_kirim)}%<br>Kirim ke Jawa ${f(r.tujuan_jawa)}% · ke luar negeri ${f(r.tujuan_luarnegeri)}%<br>${r.jumlah_usaha_ecommerce.toLocaleString('id-ID')} usaha online${r.rse_pct>10?'<br>RSE '+f(r.rse_pct)+'% (kurang presisi)':''}`;
-      return `<div class="ub${r.prioritas?' p':''}" data-t="${t.replace(/"/g,'&quot;')}"><span class="n">${r.provinsi}${r.rse_pct>10?' *':''}</span><span class="i">${f(r.indeks_keterkuncian,1)}</span><span class="s">${f(r.kendala_kirim,1)}%</span></div>`}).join('')+'</div>';});
-  const el=document.getElementById('ubin');el.innerHTML=h;
-  el.querySelectorAll('[data-t]').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.t);c.onmouseleave=hideTip});
+  const P=d.provinsi,[nm,fm,wt]=UK[S.uk],kecil=S.uk==='indeks_keterkuncian'?['kendala_kirim',v=>f(v,1)+'%']:['indeks_keterkuncian',v=>f(v,1)];let h='';
+  IS.filter(pl=>!S.wil||pl===S.wil).forEach(pl=>{const rs=P.filter(r=>r.pulau===pl),tot=rs.reduce((a,r)=>a+r.jumlah_usaha_ecommerce,0),av=rs.reduce((a,r)=>a+r[S.uk]*r.jumlah_usaha_ecommerce,0)/tot;
+    h+=`<div class="ub-r"><div class="ub-l">${pl}${wt?`<b>${fm(av)}</b>`:''}</div>`+rs.map(r=>{
+      const t=`<b>${r.provinsi}</b>${r.prioritas?' · PRIORITAS':''}<br>Indeks keterkuncian ${f(r.indeks_keterkuncian)}<br>Kendala kirim ${f(r.kendala_kirim)}%<br>Usaha jualan online ${f(r.pct_usaha_ecommerce)}%<br>${r.jumlah_usaha_ecommerce.toLocaleString('id-ID')} usaha online${r.rse_pct>10?'<br>RSE '+f(r.rse_pct)+'% (kurang presisi)':''}<br><i>Klik untuk kartu detail</i>`;
+      return `<div class="ub${r.prioritas?' p':''}${cocok(r)?'':' dim'}${S.prov===r.provinsi?' sel':''}" data-p="${r.provinsi}" data-t="${t.replace(/"/g,'&quot;')}"><span class="n">${r.provinsi}${r.rse_pct>10?' *':''}</span><span class="i">${fm(r[S.uk])}</span><span class="s">${kecil[1](r[kecil[0]])}</span></div>`}).join('')+'</div>';});
+  const el=document.getElementById('ubin');el.innerHTML=h;ikatTip(el);ikatKlik(el);
+  document.getElementById('ub-cap').textContent=`Angka besar = ${nm.toLowerCase()}${wt?' (angka di kiri = rata-rata pulau, dibobot jumlah usaha online)':''}. Angka kecil = ${kecil[0]==='kendala_kirim'?'% usaha yang menyebut jasa pengiriman sebagai kendala utama':'indeks keterkuncian'}. * RSE di atas 10% (kurang presisi). Sumber: BPS Statistik E-Commerce 2024 (diolah).`;
+}
+
+function kartu(d){
+  const el=document.getElementById('kartu'),r=S.prov&&d.provinsi.find(x=>x.provinsi===S.prov);
+  if(!r){el.hidden=true;el.innerHTML='';return}
+  const rk=k=>[...d.provinsi].sort((a,b)=>b[k]-a[k]).findIndex(x=>x.provinsi===r.provinsi)+1;
+  const atas=(v,m)=>v>=m?'di atas':'di bawah';
+  el.innerHTML=`<div class="kh"><div><span class="k" style="color:#bbb;margin:0">${r.pulau}</span><b>${r.provinsi}</b>${r.prioritas?' <span class="tag" style="background:#D9480F;color:#fff;border-color:#D9480F">PRIORITAS</span>':''}</div><button class="x" aria-label="Tutup kartu">×</button></div>
+  <dl><dt>Indeks keterkuncian</dt><dd>${f(r.indeks_keterkuncian)}</dd><dt>Kendala kirim</dt><dd>${f(r.kendala_kirim)}%</dd><dt>Usaha e-commerce</dt><dd>${r.jumlah_usaha_ecommerce.toLocaleString('id-ID')}</dd><dt>% usaha jualan online</dt><dd>${f(r.pct_usaha_ecommerce)}%</dd><dt>Kirim ke Jawa</dt><dd>${f(r.tujuan_jawa)}%</dd><dt>Kirim ke luar negeri</dt><dd>${f(r.tujuan_luarnegeri)}%</dd><dt>Pakai jasa kurir</dt><dd>${f(r.jasa_kurir_pct)}%</dd></dl>
+  <p class="kp">Keterkuncian peringkat ${rk('indeks_keterkuncian')} dari 38 (${atas(r.indeks_keterkuncian,MX)} median ${f(MX)}). Kendala kirim peringkat ${rk('kendala_kirim')} dari 38 (${atas(r.kendala_kirim,MY)} median ${f(MY)}%). ${r.prioritas?'Keduanya di atas median, jadi masuk prioritas.':'Belum memenuhi dua syarat prioritas sekaligus.'}${r.rse_pct>10?' RSE '+f(r.rse_pct)+'%, angkanya kurang presisi.':''}</p>`;
+  el.hidden=false;el.querySelector('.x').onclick=()=>pilih(null);
+}
+
+function render(){
+  kpis(D);heat(D);scatter(D);ubin(D);table(D);kartu(D);
+  const n=D.provinsi.filter(cocok).length;document.getElementById('f-count').textContent=`${n} dari 38 provinsi`;
+  document.getElementById('f-pri').classList.toggle('on',S.pri);document.getElementById('f-pri').setAttribute('aria-pressed',S.pri);
+  samakanKepala();
 }
 
 function bars(el,items,max,unit){
@@ -310,11 +362,17 @@ function tarif(d){
 function sumber(d){document.getElementById('sm').innerHTML=d.sumber.map(s=>`<li>${s.penerbit} (${s.tahun}). ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${s.judul}</a>`:s.judul}${s.kuartil_sjr?` <b>[SJR ${s.kuartil_sjr}]</b>`:''}</li>`).join('')}
 
 load().then(d=>{
-  kpis(d);heat(d);scatter(d);ubin(d);tarif(d);sumber(d);
-  const fp=document.getElementById('fp');IS.forEach(p=>fp.insertAdjacentHTML('beforeend',`<option>${p}</option>`));
-  ['q','fp'].forEach(id=>document.getElementById(id).oninput=()=>table(d));
-  document.getElementById('bp').onclick=e=>{onlyP=!onlyP;e.target.classList.toggle('on',onlyP);table(d)};
-  table(d);
+  D=d;MX=med(d.provinsi.map(r=>r.indeks_keterkuncian));MY=med(d.provinsi.map(r=>r.kendala_kirim));
+  tarif(d);sumber(d);
+  const fw=document.getElementById('f-wil');IS.forEach(p=>fw.insertAdjacentHTML('beforeend',`<option>${p}</option>`));
+  document.getElementById('dl-prov').innerHTML=d.provinsi.map(r=>`<option value="${r.provinsi}">`).join('');
+  fw.onchange=()=>{S.wil=fw.value;render()};
+  document.getElementById('f-pri').onclick=()=>{S.pri=!S.pri;render()};
+  document.getElementById('f-uk').onchange=e=>{S.uk=e.target.value;render()};
+  const fp=document.getElementById('f-prov');fp.onchange=()=>{const v=fp.value.trim().toLowerCase(),r=d.provinsi.find(x=>x.provinsi.toLowerCase()===v),n=r?r.provinsi:(v?S.prov:null);if(n===S.prov)return;S.prov=n;render()};
+  document.getElementById('f-reset').onclick=()=>{Object.assign(S,{wil:'',pri:false,prov:null,uk:'indeks_keterkuncian'});fw.value='';fp.value='';document.getElementById('f-uk').value=S.uk;render()};
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&S.prov)pilih(null)});
+  render();
 }).catch(e=>{document.getElementById('src-mode').textContent='gagal memuat data';console.error(e)});
 function samakanKepala(){const hs=[...document.querySelectorAll('.duo>.blk>.row:first-child,.duo>.col>.blk:first-child>.row:first-child')];hs.forEach(h=>h.style.minHeight='');if(innerWidth>1150&&hs.length===2){const m=Math.max(...hs.map(h=>h.offsetHeight));hs.forEach(h=>h.style.minHeight=m+'px')}}
 addEventListener('resize',samakanKepala);(document.fonts?document.fonts.ready:Promise.resolve()).then(samakanKepala);samakanKepala();
