@@ -99,6 +99,22 @@ tr.sel-tr td{background:#f3ece2}
 footer{font:12px 'JetBrains Mono',monospace;color:#2b1d0e;text-align:center}
 a{color:inherit}
 @media(max-width:700px){.row>.c+.c{border-left:0;border-top:3px solid var(--line)}.kpis>div{border-right:0;border-bottom:3px solid var(--line)}}
+
+/* HP: kolom provinsi menempel di kiri saat tabel digeser, sel lebih rapat (7 Nov).
+   Tabel ditarik ke tepi kotak (margin -20px) dan sel nama diberi padding 20px, supaya sel yang menempel
+   menutup sampai tepi dan angka yang digeser tidak mengintip di sela padding. */
+.geser{display:none}
+@media (max-width:640px){
+  .geser{display:block;font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:.04em;color:var(--mut);margin:0 0 6px}
+  .hm{margin-left:-20px}
+  .hm td div{min-width:44px;height:26px;font-size:11.5px}
+  .hm th.hh{font-size:9.5px}
+  .hm td.nm,.hm tr:first-child th:first-child{position:sticky;left:-20px;z-index:2;background:var(--paper);box-shadow:5px 0 6px -5px rgba(0,0,0,.4)}
+  .hm td.nm{font-size:12.5px;line-height:1.15;white-space:normal;min-width:112px;max-width:132px;padding-left:20px;padding-right:6px}
+  .hm tr.sel-row td.nm{padding-left:20px}
+  .hm td.pl{padding-left:20px!important}
+  .hm td.pl span{position:sticky;left:0}
+}
 </style>
 </head>
 <body>
@@ -129,6 +145,7 @@ a{color:inherit}
 <section class="blk">
   <div class="row"><div class="c"><span class="k">Temuan 1 · Pasar terkunci</span><h2>Ke mana usaha online <span>mengirim barangnya</span></h2>
   <dl class="ket"><dt>Data</dt><dd>BPS, Statistik E-Commerce 2024, Lampiran 23. Persen usaha e-commerce di tiap provinsi yang melayani tiap wilayah tujuan. Satu usaha bisa melayani lebih dari satu wilayah.</dd><dt>Cara baca</dt><dd>Baris = provinsi asal, kolom = tujuan. Kotak hitam = pulau sendiri. Makin oranye = makin banyak usaha yang mengirim ke sana. Bingkai oranye = lebih banyak mengirim ke luar negeri daripada ke Jawa.</dd><dt>Temuan</dt><dd><b>Rata-rata tiap wilayah di luar Jawa, minimal 95 dari 100 usaha online tidak mengirim ke pulau lain. Di NTT, yang mengirim ke luar negeri (3,87%) lebih banyak daripada yang mengirim ke Jawa (2,78%).</b></dd></dl></div></div>
+  <div class="geser" aria-hidden="true">Geser tabel ke kanan untuk Kalimantan sampai Luar negeri &rarr;</div>
   <div class="sec scroll"><table class="hm" id="hm"></table>
   <p class="note" style="margin-top:12px">Sumber: BPS, Statistik E-Commerce 2024, Lampiran 23. Satu usaha bisa melayani lebih dari satu wilayah.</p></div>
 </section>
@@ -258,7 +275,7 @@ function heat(d){
   let h='<tr><th></th>'+WH.map(x=>`<th class="hh">${x}</th>`).join('')+'</tr>',last='';
   const F=d.provinsi.filter(cocok);
   F.forEach(r=>{
-    if(r.pulau!==last){h+=`<tr><td colspan="8" style="padding:12px 0 4px;border:0;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#444;text-transform:uppercase">${r.pulau}</td></tr>`;last=r.pulau}
+    if(r.pulau!==last){h+=`<tr><td colspan="8" class="pl" style="padding:12px 0 4px;border:0;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#444;text-transform:uppercase"><span>${r.pulau}</span></td></tr>`;last=r.pulau}
     const own=IS.indexOf(r.pulau),flag=r.pulau!=='Jawa'&&r.tujuan_luarnegeri>r.tujuan_jawa;
     h+=`<tr class="${S.prov===r.provinsi?'sel-row':''}"><td class="nm" data-p="${r.provinsi}">${r.provinsi}</td>`+W.map((k,i)=>{const v=r[k];
       if(i===own)return `<td title="${r.provinsi}: pulau sendiri ${f(v)}%"><div style="background:#111;color:#fff">≈100</div></td>`;
